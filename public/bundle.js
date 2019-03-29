@@ -1550,10 +1550,12 @@ window.addEventListener('DOMContentLoaded', function () {
   'use strict';
 
   var callMeasurer = __webpack_require__(/*! ./parts/callMeasurer */ "./parts/callMeasurer.js"),
-      tabs = __webpack_require__(/*! ./parts/tabs */ "./parts/tabs.js");
+      tabs = __webpack_require__(/*! ./parts/tabs */ "./parts/tabs.js"),
+      popup = __webpack_require__(/*! ./parts/popup */ "./parts/popup.js");
 
   callMeasurer();
   tabs();
+  popup();
 });
 
 /***/ }),
@@ -1578,6 +1580,37 @@ function callMeasurer() {
 }
 
 module.exports = callMeasurer;
+
+/***/ }),
+
+/***/ "./parts/popup.js":
+/*!************************!*\
+  !*** ./parts/popup.js ***!
+  \************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+function popup() {
+  var btnCallModal = document.querySelectorAll('.phone_link')[0],
+      btnAskModal = document.querySelectorAll('.phone_link')[1],
+      close = document.querySelector('.popup_close'),
+      popup = document.querySelector('.popup'); // console.log(btnCallModal);
+  // console.log(btnAskModal);
+
+  btnCallModal.addEventListener('click', function () {
+    event.preventDefault();
+    popup.style.display = "block";
+  });
+  btnAskModal.addEventListener('click', function () {
+    event.preventDefault();
+    popup.style.display = "block";
+  });
+  close.addEventListener('click', function () {
+    popup.style.display = "none";
+  });
+}
+
+module.exports = popup;
 
 /***/ }),
 

@@ -7,10 +7,12 @@ window.addEventListener('DOMContentLoaded', function(){
     'use strict';
 
     let callMeasurer = require('./parts/callMeasurer'),
-        tabs = require('./parts/tabs');
+        tabs = require('./parts/tabs'),
+        popup = require('./parts/popup');
 
     callMeasurer();
     tabs();
+    popup();
 
 
 });
