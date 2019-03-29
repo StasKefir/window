@@ -1551,11 +1551,13 @@ window.addEventListener('DOMContentLoaded', function () {
 
   var callMeasurer = __webpack_require__(/*! ./parts/callMeasurer */ "./parts/callMeasurer.js"),
       tabs = __webpack_require__(/*! ./parts/tabs */ "./parts/tabs.js"),
-      popup = __webpack_require__(/*! ./parts/popup */ "./parts/popup.js");
+      popup = __webpack_require__(/*! ./parts/popup */ "./parts/popup.js"),
+      timer = __webpack_require__(/*! ./parts/timer */ "./parts/timer.js");
 
   callMeasurer();
   tabs();
   popup();
+  timer();
 });
 
 /***/ }),
@@ -1594,9 +1596,7 @@ function popup() {
   var btnCallModal = document.querySelectorAll('.phone_link')[0],
       btnAskModal = document.querySelectorAll('.phone_link')[1],
       close = document.querySelector('.popup_close'),
-      popup = document.querySelector('.popup'); // console.log(btnCallModal);
-  // console.log(btnAskModal);
-
+      popup = document.querySelector('.popup');
   btnCallModal.addEventListener('click', function () {
     event.preventDefault();
     popup.style.display = "block";
@@ -1681,6 +1681,88 @@ function tabs() {
 }
 
 module.exports = tabs;
+
+/***/ }),
+
+/***/ "./parts/timer.js":
+/*!************************!*\
+  !*** ./parts/timer.js ***!
+  \************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+function timer() {
+  var deadLine = '2019-12-18';
+
+  function getTimeRemaining(endtime) {
+    var t = Date.parse(endtime) - Date.parse(new Date());
+    var seconds, minutes, hours, days;
+
+    if (Date.parse(new Date()) >= Date.parse(endtime)) {
+      seconds = 0;
+      minutes = 0;
+      hours = 0;
+      days = 0;
+    } else {
+      seconds = Math.floor(t / 1000 % 60);
+      minutes = Math.floor(t / 1000 / 60 % 60);
+      hours = Math.floor(t / (1000 * 60 * 60) % 60);
+      days = Math.floor(t / (1000 * 60 * 60 * 24));
+    }
+
+    return {
+      'total': t,
+      'days': days,
+      'hours': hours,
+      'minutes': minutes,
+      'seconds': seconds
+    };
+  }
+
+  function setClock(endtime) {
+    var days = document.getElementById('days'),
+        hours = document.getElementById('hours'),
+        minutes = document.getElementById('minutes'),
+        seconds = document.getElementById('seconds'),
+        timeInterval = setInterval(updateClock, 1000);
+
+    function updateClock() {
+      var t = getTimeRemaining(endtime);
+
+      if (t.days < 10) {
+        days.textContent = "0" + t.days;
+      } else {
+        days.textContent = t.days;
+      }
+
+      if (t.hours < 10) {
+        hours.textContent = "0" + t.hours;
+      } else {
+        hours.textContent = t.hours;
+      }
+
+      if (t.minutes < 10) {
+        minutes.textContent = '0' + t.minutes;
+      } else {
+        minutes.textContent = t.minutes;
+      }
+
+      if (t.seconds < 10) {
+        seconds.textContent = '0' + t.seconds;
+      } else {
+        seconds.textContent = t.seconds;
+      }
+
+      if (t.total <= 0) {
+        clearInterval(timeInterval);
+      }
+    }
+  }
+
+  setClock(deadLine);
+}
+
+module.exports = timer;
 
 /***/ })
 

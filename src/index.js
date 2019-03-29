@@ -8,11 +8,13 @@ window.addEventListener('DOMContentLoaded', function(){
 
     let callMeasurer = require('./parts/callMeasurer'),
         tabs = require('./parts/tabs'),
-        popup = require('./parts/popup');
+        popup = require('./parts/popup'),
+        timer = require('./parts/timer');
 
     callMeasurer();
     tabs();
     popup();
+    timer();
 
 
 });

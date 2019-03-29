@@ -4,9 +4,6 @@ function popup() {
         close = document.querySelector('.popup_close'),
         popup= document.querySelector('.popup');
 
-        // console.log(btnCallModal);
-        // console.log(btnAskModal);
-
     btnCallModal.addEventListener('click', function(){
             event.preventDefault();
             popup.style.display = "block";
