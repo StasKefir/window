@@ -2,10 +2,14 @@ function callMeasurer() {
 
 let btnCall = document.querySelector('.header_btn'),
     btnModal = document.querySelector('.popup_engineer'),
+    mainForm = document.querySelector('.main-form'),
     input = btnModal.getElementsByTagName('input'),
     statusMessage = document.createElement('div'),
     inputWrapper,
     close = document.getElementById('btn_close');
+
+    console.log(mainForm);
+    console.log(input);
 
     let message = {
         loading: "Loading",
@@ -16,6 +20,7 @@ let btnCall = document.querySelector('.header_btn'),
 ////////////////////////////////////////////////////////// вызов и закрытие окна
     btnCall.addEventListener('click', function(){
         btnModal.style.display="block";
+        document.body.style.overflow = "hidden";
     });
     
     close.addEventListener('click', function(){
@@ -33,15 +38,15 @@ input[1].addEventListener('input', function(){
 });
 /////////////////////////////////////////////////////
 
-btnModal.addEventListener('submit', function (event) {
+mainForm.addEventListener('submit', function (event) {
     inputWrapper = input[1].value;
     arr = inputWrapper.split('');
 
-    if (!isNaN(+input[1].value) || (input[1].value[1] == '+' && !(isNaN(+input[1].value.slice(1, input[1].value.length + 1))))) {
+    if (!isNaN(+input[1].value) || (input[1].value[0] == '+' && !(isNaN(+input[1].value.slice(1, input[1].value.length + 1))))) {
 
         event.preventDefault();
-        btnModal.appendChild(statusMessage);
-        let formData = new FormData(btnModal);
+        mainForm.appendChild(statusMessage);
+        let formData = new FormData(mainForm);
 
         function postData(data) {
             return new Promise(function (resolve, reject) {
@@ -62,6 +67,7 @@ btnModal.addEventListener('submit', function (event) {
                 data.forEach(function (value, key) {
                     obj[key] = value;
                 });
+                console.log(obj);
                 let json = JSON.stringify(obj);
 
                 requestSecond.send(json);
@@ -82,7 +88,7 @@ btnModal.addEventListener('submit', function (event) {
 
     } else {
         event.preventDefault();
-        btnModal.appendChild(statusMessage);
+        mainForm.appendChild(statusMessage);
         statusMessage.innerHTML = "Используйте цифры и знак +";
     }
 });

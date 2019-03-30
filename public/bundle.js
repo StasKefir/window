@@ -1572,10 +1572,13 @@ window.addEventListener('DOMContentLoaded', function () {
 function callMeasurer() {
   var btnCall = document.querySelector('.header_btn'),
       btnModal = document.querySelector('.popup_engineer'),
+      mainForm = document.querySelector('.main-form'),
       input = btnModal.getElementsByTagName('input'),
       statusMessage = document.createElement('div'),
       inputWrapper,
       close = document.getElementById('btn_close');
+  console.log(mainForm);
+  console.log(input);
   var message = {
     loading: "Loading",
     success: "Спасибо! Скоро мы с Вами свяжемся",
@@ -1584,6 +1587,7 @@ function callMeasurer() {
 
   btnCall.addEventListener('click', function () {
     btnModal.style.display = "block";
+    document.body.style.overflow = "hidden";
   });
   close.addEventListener('click', function () {
     btnModal.style.display = "none";
@@ -1599,11 +1603,11 @@ function callMeasurer() {
     }
   }); /////////////////////////////////////////////////////
 
-  btnModal.addEventListener('submit', function (event) {
+  mainForm.addEventListener('submit', function (event) {
     inputWrapper = input[1].value;
     arr = inputWrapper.split('');
 
-    if (!isNaN(+input[1].value) || input[1].value[1] == '+' && !isNaN(+input[1].value.slice(1, input[1].value.length + 1))) {
+    if (!isNaN(+input[1].value) || input[1].value[0] == '+' && !isNaN(+input[1].value.slice(1, input[1].value.length + 1))) {
       var postData = function postData(data) {
         return new Promise(function (resolve, reject) {
           var requestSecond = new XMLHttpRequest();
@@ -1622,6 +1626,7 @@ function callMeasurer() {
           data.forEach(function (value, key) {
             obj[key] = value;
           });
+          console.log(obj);
           var json = JSON.stringify(obj);
           requestSecond.send(json);
         });
@@ -1635,8 +1640,8 @@ function callMeasurer() {
       };
 
       event.preventDefault();
-      btnModal.appendChild(statusMessage);
-      var formData = new FormData(btnModal);
+      mainForm.appendChild(statusMessage);
+      var formData = new FormData(mainForm);
       postData(formData).then(function () {
         return statusMessage.innerHTML = message.loading;
       }).then(function () {
@@ -1646,7 +1651,7 @@ function callMeasurer() {
       }).then(clearInput);
     } else {
       event.preventDefault();
-      btnModal.appendChild(statusMessage);
+      mainForm.appendChild(statusMessage);
       statusMessage.innerHTML = "Используйте цифры и знак +";
     }
   });
@@ -1667,17 +1672,92 @@ function popup() {
   var btnCallModal = document.querySelectorAll('.phone_link')[0],
       btnAskModal = document.querySelectorAll('.phone_link')[1],
       close = document.querySelector('.popup_close'),
+      mainForm = document.querySelector('.popup_main_form'),
+      input = mainForm.getElementsByTagName('input'),
+      statusMessage = document.createElement('div'),
+      inputWrapper,
       popup = document.querySelector('.popup');
+  var message = {
+    loading: "Loading",
+    success: "Спасибо! Скоро мы с Вами свяжемся",
+    failure: "Что-то пошло не так..."
+  }; ///////////////////////////////////////////////////////////////// закрыть открыть
+
   btnCallModal.addEventListener('click', function () {
     event.preventDefault();
     popup.style.display = "block";
+    document.body.style.overflow = "hidden";
   });
   btnAskModal.addEventListener('click', function () {
     event.preventDefault();
     popup.style.display = "block";
+    document.body.style.overflow = "hidden";
   });
   close.addEventListener('click', function () {
     popup.style.display = "none";
+  }); //////////////////////////////////////////////////////////////////////
+
+  function validatePhone(a) {
+    return /^(\+|\d)\d{0,12}$/.test(a);
+  }
+
+  input[1].addEventListener('input', function () {
+    if (!validatePhone(this.value)) {
+      this.value = this.value.slice(0, -1);
+    }
+  }); //////////////////////////////////////////////////////////////////////
+
+  mainForm.addEventListener('submit', function (event) {
+    inputWrapper = input[1].value;
+    arr = inputWrapper.split('');
+
+    if (!isNaN(+input[1].value) || input[1].value[0] == '+' && !isNaN(+input[1].value.slice(1, input[1].value.length + 1))) {
+      var postData = function postData(data) {
+        return new Promise(function (resolve, reject) {
+          var requestSecond = new XMLHttpRequest();
+          requestSecond.open('POST', 'server.php');
+          requestSecond.setRequestHeader('Content-Type', 'application/json; charset=utf-8');
+          requestSecond.addEventListener('readystatechange', function () {
+            if (requestSecond.readyState < 4) {
+              resolve();
+            } else if (requestSecond.readyState == 4 && requestSecond.status == 200) {
+              resolve();
+            } else {
+              reject();
+            }
+          });
+          var obj = {};
+          data.forEach(function (value, key) {
+            obj[key] = value;
+          });
+          console.log(obj);
+          var json = JSON.stringify(obj);
+          requestSecond.send(json);
+        });
+      }; // end postData
+
+
+      var clearInput = function clearInput() {
+        for (var i = 0; i < input.length; i++) {
+          input[i].value = '';
+        }
+      };
+
+      event.preventDefault();
+      mainForm.appendChild(statusMessage);
+      var formData = new FormData(mainForm);
+      postData(formData).then(function () {
+        return statusMessage.innerHTML = message.loading;
+      }).then(function () {
+        return statusMessage.innerHTML = message.success;
+      }).catch(function () {
+        return statusMessage.innerHTML = message.failure;
+      }).then(clearInput);
+    } else {
+      event.preventDefault();
+      mainForm.appendChild(statusMessage);
+      statusMessage.innerHTML = "Используйте цифры и знак +";
+    }
   });
 }
 
