@@ -1553,13 +1553,15 @@ window.addEventListener('DOMContentLoaded', function () {
       tabs = __webpack_require__(/*! ./parts/tabs */ "./parts/tabs.js"),
       popup = __webpack_require__(/*! ./parts/popup */ "./parts/popup.js"),
       timer = __webpack_require__(/*! ./parts/timer */ "./parts/timer.js"),
-      sixForms = __webpack_require__(/*! ./parts/sixForms */ "./parts/sixForms.js");
+      sixForms = __webpack_require__(/*! ./parts/sixForms */ "./parts/sixForms.js"),
+      glazTabs = __webpack_require__(/*! ./parts/glazTabs */ "./parts/glazTabs.js");
 
   callMeasurer();
   tabs();
   popup();
   timer();
   sixForms();
+  glazTabs();
 });
 
 /***/ }),
@@ -1658,6 +1660,76 @@ function callMeasurer() {
 }
 
 module.exports = callMeasurer;
+
+/***/ }),
+
+/***/ "./parts/glazTabs.js":
+/*!***************************!*\
+  !*** ./parts/glazTabs.js ***!
+  \***************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+function glazTabs() {
+  var tabWrapper = document.querySelector('.glazing_slider'),
+      tab = document.querySelectorAll('.btn-glaz'),
+      decorationChild = document.querySelectorAll('.decoration-child'),
+      // используй табы
+  tabContent = document.querySelectorAll('.tab-glaz');
+
+  function hideTabContent(a) {
+    for (var i = a; i < tabContent.length; i++) {
+      tabContent[i].classList.remove('show');
+      tabContent[i].classList.add('hide');
+    }
+  }
+
+  hideTabContent(1);
+
+  function showTabContent(b) {
+    if (tabContent[b].classList.contains('hide')) {
+      tabContent[b].classList.remove('hide');
+      tabContent[b].classList.add('show');
+    }
+  }
+
+  function addActiveClass(a) {
+    tab.forEach(function (item) {
+      if (item == a) {
+        item.classList.add('active');
+      } else {
+        item.classList.remove('active');
+      }
+    });
+  }
+
+  tabWrapper.addEventListener('click', function (event) {
+    var target = event.target,
+        parentTab;
+
+    if (target && target.classList.contains('btn-glaz')) {
+      for (var i = 0; i < tab.length; i++) {
+        if (target == tab[i]) {
+          hideTabContent(0);
+          showTabContent(i);
+          parentTab = tab[i].parentNode; // preParent =parentTab.parentNode;
+
+          console.log(parentTab); // console.log(preParent);
+
+          if (!parentTab.classList.contains('active')) {
+            addActiveClass(parentTab); // parentTab.classList.add('after_click');
+          } else {
+            console.log('no');
+          }
+
+          break;
+        }
+      }
+    }
+  });
+}
+
+module.exports = glazTabs;
 
 /***/ }),
 

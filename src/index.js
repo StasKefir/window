@@ -10,13 +10,15 @@ window.addEventListener('DOMContentLoaded', function(){
         tabs = require('./parts/tabs'),
         popup = require('./parts/popup'),
         timer = require('./parts/timer'),
-        sixForms = require('./parts/sixForms');
+        sixForms = require('./parts/sixForms'),
+        glazTabs = require('./parts/glazTabs');
 
     callMeasurer();
     tabs();
     popup();
     timer();
     sixForms();
+    glazTabs();
 
 
 });
