@@ -100,6 +100,12 @@ mainForm.addEventListener('submit', function (event) {
     }
 });
 
+popup.addEventListener('click', function(){
+    let target = event.target;
+    if(target == popup){
+        popup.style.display = "none";
+    }
 
+});
 }
 module.exports = popup;

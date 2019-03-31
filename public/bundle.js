@@ -1831,6 +1831,13 @@ function popup() {
       statusMessage.innerHTML = "Используйте цифры и знак +";
     }
   });
+  popup.addEventListener('click', function () {
+    var target = event.target;
+
+    if (target == popup) {
+      popup.style.display = "none";
+    }
+  });
 }
 
 module.exports = popup;
