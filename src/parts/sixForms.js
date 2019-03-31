@@ -1,12 +1,11 @@
-function callMeasurer() {
-
-let btnCall = document.querySelector('.header_btn'),
-    btnModal = document.querySelector('.popup_engineer'),
-    mainForm = document.querySelector('.main-form'),
-    input = btnModal.getElementsByTagName('input'),
+function sixForms() {
+let arrMainForm = document.querySelectorAll('.main_form'),
+    arrInput = document.querySelectorAll('.six-inputs'),
     statusMessage = document.createElement('div'),
-    inputWrapper,
-    close = document.getElementById('btn_close');
+    parentInput,
+    btnSubmit, 
+    targetInput,
+    targetParent;
 
     let message = {
         loading: "Loading",
@@ -14,36 +13,38 @@ let btnCall = document.querySelector('.header_btn'),
         failure: "Что-то пошло не так..."
     };
 
-////////////////////////////////////////////////////////// вызов и закрытие окна
-    btnCall.addEventListener('click', function(){
-        btnModal.style.display="block";
-        document.body.style.overflow = "hidden";
-    });
-    
-    close.addEventListener('click', function(){
-        btnModal.style.display="none";
-    });
 ///////////////////////////////////////////////////////проверка телефона
 function validatePhone (a) {
     return /^(\+|\d)\d{0,12}$/.test(a);
 }
 
-input[1].addEventListener('input', function(){
-    if (!validatePhone(this.value)) {
-        this.value = this.value.slice(0, -1);
-    }
-});
+
 /////////////////////////////////////////////////////
-
-mainForm.addEventListener('submit', function (event) {
-    inputWrapper = input[1].value;
-    arr = inputWrapper.split('');
-
-    if (!isNaN(+input[1].value) || (input[1].value[0] == '+' && !(isNaN(+input[1].value.slice(1, input[1].value.length + 1))))) {
-
+arrMainForm.forEach(function(item){
+    item.addEventListener('submit', function(event){
         event.preventDefault();
-        mainForm.appendChild(statusMessage);
-        let formData = new FormData(mainForm);
+        let target = event.target;
+        console.log(target);
+        for (let i = 0; i < item.length; i++) {
+                targetInput =target.getElementsByTagName('input');
+                targetParent = target;
+                targetInput[1].addEventListener('input', function(){
+                    if (!validatePhone(this.value)) {
+                        this.value = this.value.slice(0, -1);
+                    }
+                });
+               
+        }
+        requestFunc();
+    });
+});
+
+
+function requestFunc() {
+
+
+        targetParent.appendChild(statusMessage);
+        let formData = new FormData(targetParent);
 
         function postData(data) {
             return new Promise(function (resolve, reject) {
@@ -64,15 +65,15 @@ mainForm.addEventListener('submit', function (event) {
                 data.forEach(function (value, key) {
                     obj[key] = value;
                 });
-                console.log(obj);
+                // console.log(obj);
                 let json = JSON.stringify(obj);
 
                 requestSecond.send(json);
             });
         } // end postData
         function clearInput() {
-            for (let i = 0; i < input.length; i++) {
-                input[i].value = '';
+            for (let i = 0; i < targetInput.length; i++) {
+                targetInput[i].value = '';
             }
         }
 
@@ -83,12 +84,9 @@ mainForm.addEventListener('submit', function (event) {
             .then(clearInput);
 
 
-    } else {
-        event.preventDefault();
-        mainForm.appendChild(statusMessage);
-        statusMessage.innerHTML = "Используйте цифры и знак +";
-    }
-});
 
 }
-module.exports = callMeasurer;
+
+}
+
+module.exports= sixForms;

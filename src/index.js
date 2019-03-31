@@ -9,12 +9,14 @@ window.addEventListener('DOMContentLoaded', function(){
     let callMeasurer = require('./parts/callMeasurer'),
         tabs = require('./parts/tabs'),
         popup = require('./parts/popup'),
-        timer = require('./parts/timer');
+        timer = require('./parts/timer'),
+        sixForms = require('./parts/sixForms');
 
     callMeasurer();
     tabs();
     popup();
     timer();
+    sixForms();
 
 
 });
