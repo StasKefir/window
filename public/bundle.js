@@ -1555,7 +1555,9 @@ window.addEventListener('DOMContentLoaded', function () {
       timer = __webpack_require__(/*! ./parts/timer */ "./parts/timer.js"),
       sixForms = __webpack_require__(/*! ./parts/sixForms */ "./parts/sixForms.js"),
       glazTabs = __webpack_require__(/*! ./parts/glazTabs */ "./parts/glazTabs.js"),
-      popupTime = __webpack_require__(/*! ./parts/popupTime */ "./parts/popupTime.js");
+      popupTime = __webpack_require__(/*! ./parts/popupTime */ "./parts/popupTime.js"),
+      gallery = __webpack_require__(/*! ./parts/gallery */ "./parts/gallery.js"),
+      calc = __webpack_require__(/*! ./parts/calc */ "./parts/calc.js");
 
   callMeasurer();
   tabs();
@@ -1564,7 +1566,22 @@ window.addEventListener('DOMContentLoaded', function () {
   sixForms();
   glazTabs();
   popupTime();
+  gallery();
+  calc();
 });
+
+/***/ }),
+
+/***/ "./parts/calc.js":
+/*!***********************!*\
+  !*** ./parts/calc.js ***!
+  \***********************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+function calc() {}
+
+module.exports = calc;
 
 /***/ }),
 
@@ -1666,6 +1683,81 @@ function callMeasurer() {
 }
 
 module.exports = callMeasurer;
+
+/***/ }),
+
+/***/ "./parts/gallery.js":
+/*!**************************!*\
+  !*** ./parts/gallery.js ***!
+  \**************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+function gallery() {
+  var galleryContent = document.querySelector('.gallery_content'),
+      galleryItem = document.querySelectorAll('.gallery_item'),
+      gallImg = document.querySelectorAll('.gall_img');
+  galleryItem.forEach(function (item) {
+    item.addEventListener('click', function (event) {
+      var target = event.target,
+          itemChild = item.lastChild;
+      event.preventDefault();
+
+      if (target == itemChild.lastChild) {
+        var src = target.getAttribute("src"),
+            divPopGal = document.createElement('div'),
+            divGalBack = document.createElement('div'),
+            imgGal = document.createElement('img');
+        divPopGal.classList.add('popup-gallery');
+        divGalBack.classList.add('gallery-bg');
+        imgGal.classList.add('gallery-img');
+        document.body.appendChild(divPopGal);
+        divPopGal.appendChild(divGalBack);
+        divPopGal.appendChild(imgGal);
+        var arrSrc = src.split("/");
+        imgGal.setAttribute("src", "img/our_works/big_img/" + arrSrc[arrSrc.length - 1] + "");
+        console.log(arrSrc);
+        divPopGal.style.cssText = "position: absolute; \
+                    height:100%;\
+                    width:100%;\
+                    top:0;\
+                    left:0;\
+                    display:block;\
+                    text-align:center;\
+                    ";
+        divGalBack.style.cssText = "position: fixed;\
+                    top: 0px;\
+                    left: 0px;\
+                    height:100%;\
+                    width:100%;\
+                    background-color:rgba(0,0,0,.75);\
+                    display: flex;\
+                    align-items: center\
+                    justify-content: center\
+                    ";
+        imgGal.style.cssText = "position: relative;\
+                    margin:auto auto;\
+                    z-index:2;\
+                    max-height:94%;\
+                    max-width:94%;\
+                    margin:1% 0 0 0;\
+                    ";
+        console.log(imgGal);
+        console.log(src);
+        divPopGal.addEventListener('click', function (event) {
+          var target = event.target;
+
+          if (target == divGalBack) {
+            console.log('ты кликнул на подложку');
+            divPopGal.style.display = "none";
+          }
+        });
+      }
+    });
+  });
+}
+
+module.exports = gallery;
 
 /***/ }),
 
@@ -1808,8 +1900,8 @@ function popup() {
           var obj = {};
           data.forEach(function (value, key) {
             obj[key] = value;
-          });
-          console.log(obj);
+          }); // console.log(obj);
+
           var json = JSON.stringify(obj);
           requestSecond.send(json);
         });
@@ -1880,14 +1972,9 @@ function popupTime() {
 
     close.addEventListener('click', function () {
       popup.style.display = "none";
-      console.log(statusMessage); //пустий
 
       if (!(statusMessage === null || statusMessage === undefined)) {
-        // mainForm.statusMessage.innerHTML="";
-        // statusMessage.parentNode.removeChild(statusMessage);
-        mainForm.lastElementChild.remove(); // mainForm.remove(statusMessage);
-
-        console.log("delete"); // statusMessage.remove();
+        mainForm.lastElementChild.remove();
       }
     }); //////////////////////////////////////////////////////////////////////
 
@@ -1923,8 +2010,8 @@ function popupTime() {
             var obj = {};
             data.forEach(function (value, key) {
               obj[key] = value;
-            });
-            console.log(obj);
+            }); // console.log(obj);
+
             var json = JSON.stringify(obj);
             requestSecond.send(json);
           });
@@ -1960,9 +2047,7 @@ function popupTime() {
         popup.style.display = "none";
 
         if (!(statusMessage === null || statusMessage === undefined)) {
-          // mainForm.statusMessage.innerHTML="";
           mainForm.lastElementChild.remove();
-          console.log('delete 2');
         }
       }
     });

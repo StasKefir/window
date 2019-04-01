@@ -75,7 +75,7 @@ mainForm.addEventListener('submit', function (event) {
                 data.forEach(function (value, key) {
                     obj[key] = value;
                 });
-                console.log(obj);
+                // console.log(obj);
                 let json = JSON.stringify(obj);
 
                 requestSecond.send(json);

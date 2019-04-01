@@ -12,7 +12,9 @@ window.addEventListener('DOMContentLoaded', function(){
         timer = require('./parts/timer'),
         sixForms = require('./parts/sixForms'),
         glazTabs = require('./parts/glazTabs'),
-        popupTime = require('./parts/popupTime');
+        popupTime = require('./parts/popupTime'),
+        gallery = require('./parts/gallery'),
+        calc =require('./parts/calc');
 
     callMeasurer();
     tabs();
@@ -21,5 +23,6 @@ window.addEventListener('DOMContentLoaded', function(){
     sixForms();
     glazTabs();
     popupTime();
-
+    gallery();
+    calc();
 });

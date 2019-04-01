@@ -24,14 +24,8 @@ function popupTime() {
       
         close.addEventListener('click', function(){
             popup.style.display = "none";
-            console.log(statusMessage);//пустий
             if(!(statusMessage=== null || statusMessage=== undefined )){
-                // mainForm.statusMessage.innerHTML="";
-                // statusMessage.parentNode.removeChild(statusMessage);
                 mainForm.lastElementChild.remove();
-                // mainForm.remove(statusMessage);
-                console.log("delete");
-                // statusMessage.remove();
             }
         });
           
@@ -76,7 +70,7 @@ function popupTime() {
                     data.forEach(function (value, key) {
                         obj[key] = value;
                     });
-                    console.log(obj);
+                    // console.log(obj);
                     let json = JSON.stringify(obj);
     
                     requestSecond.send(json);
@@ -107,9 +101,7 @@ function popupTime() {
         if(target == popup){
             popup.style.display = "none";
             if(!(statusMessage=== null || statusMessage=== undefined )){
-                // mainForm.statusMessage.innerHTML="";
                 mainForm.lastElementChild.remove();
-                console.log('delete 2');
             }
         }
     
