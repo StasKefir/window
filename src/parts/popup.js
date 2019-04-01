@@ -31,6 +31,7 @@ function popup() {
 
     close.addEventListener('click', function(){
         popup.style.display = "none";
+        mainForm.lastElementChild.remove();
     });
       
 //////////////////////////////////////////////////////////////////////
@@ -104,6 +105,7 @@ popup.addEventListener('click', function(){
     let target = event.target;
     if(target == popup){
         popup.style.display = "none";
+        mainForm.lastElementChild.remove();
     }
 
 });

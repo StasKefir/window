@@ -22,6 +22,8 @@ let btnCall = document.querySelector('.header_btn'),
     
     close.addEventListener('click', function(){
         btnModal.style.display="none";
+        if(!(statusMessage=== null || statusMessage=== undefined )){
+            mainForm.removeChild(statusMessage);}
     });
 ///////////////////////////////////////////////////////проверка телефона
 function validatePhone (a) {
