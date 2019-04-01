@@ -1711,21 +1711,21 @@ function gallery() {
         divPopGal.classList.add('popup-gallery');
         divGalBack.classList.add('gallery-bg');
         imgGal.classList.add('gallery-img');
-        document.body.appendChild(divPopGal);
-        divPopGal.appendChild(divGalBack);
+        document.body.appendChild(divPopGal); // divPopGal.appendChild(divGalBack);
+
         divPopGal.appendChild(imgGal);
         var arrSrc = src.split("/");
         imgGal.setAttribute("src", "img/our_works/big_img/" + arrSrc[arrSrc.length - 1] + "");
-        console.log(arrSrc);
-        divPopGal.style.cssText = "position: absolute; \
-                    height:100%;\
-                    width:100%;\
-                    top:0;\
-                    left:0;\
-                    display:block;\
-                    text-align:center;\
-                    ";
-        divGalBack.style.cssText = "position: fixed;\
+        console.log(arrSrc); // divPopGal.style.cssText = "position: absolute; \
+        // height:100%;\
+        // width:100%;\
+        // top:0;\
+        // left:0;\
+        // display:block;\
+        // text-align:center;\
+        // ";
+
+        divPopGal.style.cssText = "position: fixed;\
                     top: 0px;\
                     left: 0px;\
                     height:100%;\
@@ -1740,7 +1740,6 @@ function gallery() {
                     z-index:2;\
                     max-height:94%;\
                     max-width:94%;\
-                    margin:1% 0 0 0;\
                     ";
         console.log(imgGal);
         console.log(src);

@@ -605,7 +605,7 @@ textarea:focus {
 .sale .eTimer {
   text-align: center;
 }
-/* Timer */
+ /* Timer */
 .timer1 {
   padding: 10px;
   border: 1px solid grey;
@@ -639,7 +639,7 @@ textarea:focus {
   font-size: 18px;
   text-align: center;
   color: black;
-}
+} 
 /*Contacts*/
 .contacts {
   padding: 6rem 0;
