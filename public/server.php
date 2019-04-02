@@ -1,3 +1,3 @@
-<?php 
-
-echo $_SERVER[‘REMOTE_ADDR‘];
+<?php
+sleep(5);
+echo 'Ответ сервера';

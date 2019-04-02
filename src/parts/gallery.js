@@ -26,16 +26,7 @@ function gallery() {
 
                     let arrSrc = src.split("/");
                     imgGal.setAttribute("src","img/our_works/big_img/"+arrSrc[arrSrc.length-1]+"");
-                    console.log(arrSrc);
 
-                    // divPopGal.style.cssText = "position: absolute; \
-                    // height:100%;\
-                    // width:100%;\
-                    // top:0;\
-                    // left:0;\
-                    // display:block;\
-                    // text-align:center;\
-                    // ";
                     divPopGal.style.cssText ="position: fixed;\
                     top: 0px;\
                     left: 0px;\
@@ -54,13 +45,10 @@ function gallery() {
                     max-width:94%;\
                     ";
 
-                    console.log(imgGal);
-                    console.log(src);
 
                     divPopGal.addEventListener('click',function(event){
                         let target = event.target;
                         if( target== divGalBack){
-                            console.log('ты кликнул на подложку');
                             divPopGal.style.display="none";
                         }
                     });
