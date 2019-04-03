@@ -4,7 +4,7 @@ let btnCall = document.querySelector('.header_btn'),
     btnModal = document.querySelector('.popup_engineer'),
     mainForm = document.querySelector('.main-form'),
     input = btnModal.getElementsByTagName('input'),
-    statusMessage = document.createElement('div'),
+    statusMessage= document.createElement('div'),
     inputWrapper,
     close = document.getElementById('btn_close');
 
@@ -13,7 +13,7 @@ let btnCall = document.querySelector('.header_btn'),
         success: "Спасибо! Скоро мы с Вами свяжемся",
         failure: "Что-то пошло не так..."
     };
-
+    mainForm.appendChild(statusMessage);
 ////////////////////////////////////////////////////////// вызов и закрытие окна
     btnCall.addEventListener('click', function(){
         btnModal.style.display="block";
@@ -22,9 +22,32 @@ let btnCall = document.querySelector('.header_btn'),
     
     close.addEventListener('click', function(){
         btnModal.style.display="none";
-        if(!(statusMessage=== null || statusMessage=== undefined )){
-            mainForm.removeChild(statusMessage);}
+        clearInput();
+        if(statusMessage=== null || statusMessage=== undefined || statusMessage=== "" ){
+        } else {
+            statusMessage.style.display="none";
+        }
     });
+
+    btnModal.addEventListener('click',function(event){
+        let target = event.target;
+        if(target==btnModal) {
+            btnModal.style.display="none";
+           
+        if(statusMessage=== null || statusMessage=== undefined || statusMessage=== "" ){
+        } else {
+            // statusMessage.remove();
+            statusMessage.style.display="none";
+            console.log('lol');
+           
+        }
+        }
+    });
+    function clearInput() {
+        for (let i = 0; i < input.length; i++) {
+            input[i].value = '';
+        }
+    }
 ///////////////////////////////////////////////////////проверка телефона
 function validatePhone (a) {
     return /^(\+|\d)\d{0,12}$/.test(a);
@@ -38,13 +61,14 @@ input[1].addEventListener('input', function(){
 /////////////////////////////////////////////////////
 
 mainForm.addEventListener('submit', function (event) {
+    
     inputWrapper = input[1].value;
     arr = inputWrapper.split('');
 
     if (!isNaN(+input[1].value) || (input[1].value[0] == '+' && !(isNaN(+input[1].value.slice(1, input[1].value.length + 1))))) {
 
         event.preventDefault();
-        mainForm.appendChild(statusMessage);
+        
         let formData = new FormData(mainForm);
 
         function postData(data) {
@@ -72,16 +96,15 @@ mainForm.addEventListener('submit', function (event) {
                 requestSecond.send(json);
             });
         } // end postData
-        function clearInput() {
-            for (let i = 0; i < input.length; i++) {
-                input[i].value = '';
-            }
-        }
+      
 
         postData(formData)
-            .then(() => statusMessage.innerHTML = message.loading)
-            .then(() => statusMessage.innerHTML = message.success)
-            .catch(() => statusMessage.innerHTML = message.failure)
+            .then(() =>{statusMessage.innerHTML = message.loading;
+            statusMessage.style.display="block";} )
+            .then(() =>{statusMessage.innerHTML = message.success;
+                statusMessage.style.display="block";} )
+            .catch(() =>{statusMessage.innerHTML = message.failure;
+                statusMessage.style.display="block";} )
             .then(clearInput);
 
 

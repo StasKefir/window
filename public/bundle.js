@@ -1835,7 +1835,8 @@ function callMeasurer() {
     loading: "Loading",
     success: "Спасибо! Скоро мы с Вами свяжемся",
     failure: "Что-то пошло не так..."
-  }; ////////////////////////////////////////////////////////// вызов и закрытие окна
+  };
+  mainForm.appendChild(statusMessage); ////////////////////////////////////////////////////////// вызов и закрытие окна
 
   btnCall.addEventListener('click', function () {
     btnModal.style.display = "block";
@@ -1843,11 +1844,32 @@ function callMeasurer() {
   });
   close.addEventListener('click', function () {
     btnModal.style.display = "none";
+    clearInput();
 
-    if (!(statusMessage === null || statusMessage === undefined)) {
-      mainForm.removeChild(statusMessage);
+    if (statusMessage === null || statusMessage === undefined || statusMessage === "") {} else {
+      statusMessage.style.display = "none";
     }
-  }); ///////////////////////////////////////////////////////проверка телефона
+  });
+  btnModal.addEventListener('click', function (event) {
+    var target = event.target;
+
+    if (target == btnModal) {
+      btnModal.style.display = "none";
+
+      if (statusMessage === null || statusMessage === undefined || statusMessage === "") {} else {
+        // statusMessage.remove();
+        statusMessage.style.display = "none";
+        console.log('lol');
+      }
+    }
+  });
+
+  function clearInput() {
+    for (var i = 0; i < input.length; i++) {
+      input[i].value = '';
+    }
+  } ///////////////////////////////////////////////////////проверка телефона
+
 
   function validatePhone(a) {
     return /^(\+|\d)\d{0,12}$/.test(a);
@@ -1889,21 +1911,17 @@ function callMeasurer() {
       }; // end postData
 
 
-      var clearInput = function clearInput() {
-        for (var i = 0; i < input.length; i++) {
-          input[i].value = '';
-        }
-      };
-
       event.preventDefault();
-      mainForm.appendChild(statusMessage);
       var formData = new FormData(mainForm);
       postData(formData).then(function () {
-        return statusMessage.innerHTML = message.loading;
+        statusMessage.innerHTML = message.loading;
+        statusMessage.style.display = "block";
       }).then(function () {
-        return statusMessage.innerHTML = message.success;
+        statusMessage.innerHTML = message.success;
+        statusMessage.style.display = "block";
       }).catch(function () {
-        return statusMessage.innerHTML = message.failure;
+        statusMessage.innerHTML = message.failure;
+        statusMessage.style.display = "block";
       }).then(clearInput);
     } else {
       event.preventDefault();
@@ -1993,9 +2011,12 @@ module.exports = gallery;
 function glazTabs() {
   var tabWrapper = document.querySelector('.glazing_slider'),
       tab = document.querySelectorAll('.btn-glaz'),
+      glazingBlock = document.querySelectorAll('.glazing_block'),
       decorationChild = document.querySelectorAll('.decoration-child'),
       // используй табы
-  tabContent = document.querySelectorAll('.tab-glaz');
+  tabContent = document.querySelectorAll('.tab-glaz'); // console.log(tabWrapper);
+  // console.log(tab);
+  // console.log(tabContent);
 
   function hideTabContent(a) {
     for (var i = a; i < tabContent.length; i++) {
@@ -2026,18 +2047,18 @@ function glazTabs() {
   tabWrapper.addEventListener('click', function (event) {
     var target = event.target,
         parentTab;
+    console.log(target && (target.parentNode.classList.contains('glazing_block') || target.classList.contains('glazing_block')));
 
-    if (target && target.classList.contains('btn-glaz')) {
-      for (var i = 0; i < tab.length; i++) {
-        if (target == tab[i]) {
+    if (target && (target.parentNode.classList.contains('glazing_block') || target.classList.contains('glazing_block'))) {
+      for (var i = 0; i < tabContent.length; i++) {
+        if (target == tab[i] || target == glazingBlock[i] || target.parentNode == glazingBlock[i]) {
           hideTabContent(0);
           showTabContent(i);
-          parentTab = tab[i].parentNode; // preParent =parentTab.parentNode;
-
-          console.log(parentTab); // console.log(preParent);
+          parentTab = tab[i].parentNode;
+          console.log(parentTab);
 
           if (!parentTab.classList.contains('active')) {
-            addActiveClass(parentTab); // parentTab.classList.add('after_click');
+            addActiveClass(parentTab);
           } else {
             console.log('no');
           }

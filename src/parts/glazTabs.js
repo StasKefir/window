@@ -1,8 +1,13 @@
 function glazTabs() {
     let tabWrapper = document.querySelector('.glazing_slider'),
     tab = document.querySelectorAll('.btn-glaz'),
+    glazingBlock = document.querySelectorAll('.glazing_block'),
     decorationChild = document.querySelectorAll('.decoration-child'),// используй табы
     tabContent = document.querySelectorAll('.tab-glaz');
+
+    // console.log(tabWrapper);
+    // console.log(tab);
+    // console.log(tabContent);
 
     function hideTabContent(a) {
         for (let i = a; i < tabContent.length; i++) {
@@ -33,18 +38,16 @@ function glazTabs() {
     tabWrapper.addEventListener('click', function (event) {
         let target = event.target,
             parentTab;
-        if (target && target.classList.contains('btn-glaz')) {
-            for (let i = 0; i < tab.length; i++) {
-                if (target == tab[i]) {
+            console.log(target && (target.parentNode.classList.contains('glazing_block') || target.classList.contains('glazing_block')));
+        if (target && (target.parentNode.classList.contains('glazing_block') || target.classList.contains('glazing_block'))) {
+            for (let i = 0; i < tabContent.length; i++) {
+                if (target == tab[i]  || target == glazingBlock[i] || target.parentNode == glazingBlock[i]) {
                     hideTabContent(0);
                     showTabContent(i);
                     parentTab = tab[i].parentNode;
-                    // preParent =parentTab.parentNode;
                     console.log(parentTab);
-                    // console.log(preParent);
                     if(!(parentTab.classList.contains('active'))){
                         addActiveClass(parentTab);
-                        // parentTab.classList.add('after_click');
                     } else{console.log('no');}
                     break;
                 }
