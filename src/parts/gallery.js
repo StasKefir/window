@@ -48,7 +48,11 @@ function gallery() {
 
                     divPopGal.addEventListener('click',function(event){
                         let target = event.target;
-                        if( target== divGalBack){
+                        console.log('hello');
+                        console.log(target);
+                        console.log(divGalBack);
+                        if( target== divPopGal){
+                            console.log('no');
                             divPopGal.style.display="none";
                         }
                     });
