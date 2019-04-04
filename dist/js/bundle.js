@@ -761,8 +761,15 @@ function sixForms() {
   } /////////////////////////////////////////////////////
 
 
+  arrInput.forEach(function (item) {
+    item.addEventListener('input', function (event) {
+      if (!validatePhone(this.value)) {
+        this.value = this.value.slice(0, -1);
+      }
+    });
+  });
   arrMainForm.forEach(function (item) {
-    item.addEventListener('submit', function (event) {
+    item.addEventListener('submit', function (eve) {
       event.preventDefault();
       var target = event.target;
       console.log(target);
@@ -770,11 +777,7 @@ function sixForms() {
       for (var i = 0; i < item.length; i++) {
         targetInput = target.getElementsByTagName('input');
         targetParent = target;
-        targetInput[1].addEventListener('input', function () {
-          if (!validatePhone(this.value)) {
-            this.value = this.value.slice(0, -1);
-          }
-        });
+        targetInput[1].addEventListener('input', function () {});
       }
 
       requestFunc();

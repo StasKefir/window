@@ -20,8 +20,16 @@ function validatePhone (a) {
 
 
 /////////////////////////////////////////////////////
+arrInput.forEach(function(item){
+    item.addEventListener('input', function(event){
+        if (!validatePhone(this.value)) {
+            this.value = this.value.slice(0, -1);
+        }
+    });
+});
+
 arrMainForm.forEach(function(item){
-    item.addEventListener('submit', function(event){
+    item.addEventListener('submit', function(eve){
         event.preventDefault();
         let target = event.target;
         console.log(target);
@@ -29,9 +37,7 @@ arrMainForm.forEach(function(item){
                 targetInput =target.getElementsByTagName('input');
                 targetParent = target;
                 targetInput[1].addEventListener('input', function(){
-                    if (!validatePhone(this.value)) {
-                        this.value = this.value.slice(0, -1);
-                    }
+                   
                 });
                
         }

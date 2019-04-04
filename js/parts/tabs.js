@@ -4,6 +4,7 @@ let tabWrapper = document.querySelector('.decoration_slider'),
     decorItem = document.querySelectorAll('decoration_item'),
     decorationChild = document.querySelectorAll('.decoration-child'),
     tabContent = document.querySelectorAll('.tab_content');
+    
 
     function hideTabContent(a) {
         for (let i = a; i < tabContent.length; i++) {
