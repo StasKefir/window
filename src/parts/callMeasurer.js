@@ -38,7 +38,7 @@ let btnCall = document.querySelector('.header_btn'),
         } else {
             // statusMessage.remove();
             statusMessage.style.display="none";
-            console.log('lol');
+            // console.log('lol');
            
         }
         }

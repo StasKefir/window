@@ -9,6 +9,8 @@ function popup() {
         inputWrapper,
         popup= document.querySelector('.popup');
 
+        mainForm.appendChild(statusMessage);
+
 
         let message = {
             loading: "Loading",
@@ -31,7 +33,8 @@ function popup() {
 
     close.addEventListener('click', function(){
         popup.style.display = "none";
-        mainForm.lastElementChild.remove();
+        // mainForm.lastElementChild.remove();
+        statusMessage.style.display= "none";
     });
       
 //////////////////////////////////////////////////////////////////////
@@ -53,7 +56,7 @@ mainForm.addEventListener('submit', function (event) {
     if (!isNaN(+input[1].value) || (input[1].value[0] == '+' && !(isNaN(+input[1].value.slice(1, input[1].value.length + 1))))) {
 
         event.preventDefault();
-        mainForm.appendChild(statusMessage);
+
         let formData = new FormData(mainForm);
 
         function postData(data) {
@@ -87,10 +90,13 @@ mainForm.addEventListener('submit', function (event) {
             }
         }
 
-        postData(formData)
-            .then(() => statusMessage.innerHTML = message.loading)
-            .then(() => statusMessage.innerHTML = message.success)
-            .catch(() => statusMessage.innerHTML = message.failure)
+         postData(formData)
+            .then(() =>{statusMessage.innerHTML = message.loading;
+            statusMessage.style.display="block";} )
+            .then(() =>{statusMessage.innerHTML = message.success;
+                statusMessage.style.display="block";} )
+            .catch(() =>{statusMessage.innerHTML = message.failure;
+                statusMessage.style.display="block";} )
             .then(clearInput);
 
 
@@ -105,8 +111,7 @@ popup.addEventListener('click', function(){
     let target = event.target;
     if(target == popup){
         popup.style.display = "none";
-        mainForm.lastElementChild.remove();
-    }
+    statusMessage.style.display="none";    }
 
 });
 }
