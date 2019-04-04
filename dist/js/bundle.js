@@ -715,7 +715,7 @@ module.exports = popup;
 
 function popupTime() {
   var popup = document.querySelector('.popup');
-  setTimeout(popupUp, 3000);
+  setTimeout(popupUp, 60000);
 
   function popupUp() {
     var modal = document.querySelector('.popup');

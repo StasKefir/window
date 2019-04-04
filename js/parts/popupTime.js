@@ -1,6 +1,6 @@
 function popupTime() {
     let popup = document.querySelector('.popup');
-    setTimeout(popupUp, 3000);
+    setTimeout(popupUp, 60000);
 
     function popupUp() {
         let modal = document.querySelector('.popup');
