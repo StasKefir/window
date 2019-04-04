@@ -91,7 +91,9 @@
   !*** ./js/parts/calc.js ***!
   \**************************/
 /*! no static exports found */
-/***/ (function(module, exports) {
+/***/ (function(module, exports, __webpack_require__) {
+
+var _Promise = typeof Promise === 'undefined' ? __webpack_require__(/*! es6-promise */ "./node_modules/es6-promise/dist/es6-promise.js").Promise : Promise;
 
 function calc() {
   var glazingPriceBtn = document.querySelectorAll('.glazing_price_btn'),
@@ -283,37 +285,42 @@ function calc() {
   btnForm3.addEventListener('click', function (event) {
     event.preventDefault();
     formData.append("userName", inputCalcEnd1.value);
-    formData.append("userPhone", inputCalcEnd2.value); // function postData(data) {
-    //     return new Promise(function (resolve, reject) {
-    //         let requestSecond = new XMLHttpRequest();
-    //         requestSecond.open('POST', 'server.php');
-    //         requestSecond.setRequestHeader('Content-Type', 'application/json; charset=utf-8');
-    //         requestSecond.addEventListener('readystatechange', function () {
-    //             if (requestSecond.readyState < 4) {
-    //                 resolve();
-    //             } else if (requestSecond.readyState == 4 && requestSecond.status == 200) {
-    //                 resolve();
-    //             } else {
-    //                 reject();
-    //             }
-    //         });
-    //         let obj = {};
-    //         data.forEach(function (value, key) {
-    //             obj[key] = value;
-    //         });
-    //         console.log(obj);
-    //         let json = JSON.stringify(obj);
-    //         console.log(json);
-    //         requestSecond.send(json);
-    //     });
-    // } // end postData
-    // statusMessage.style.display="block";
-    // postData(formData)
-    //     .then(() => statusMessage.innerHTML = message.loading)
-    //     .then(() => statusMessage.innerHTML = message.success)
-    //     .catch(() => statusMessage.innerHTML = message.failure)
-    //     .then(clearInput);
-    // console.log(formData.values);
+    formData.append("userPhone", inputCalcEnd2.value);
+
+    function postData(data) {
+      return new _Promise(function (resolve, reject) {
+        var requestSecond = new XMLHttpRequest();
+        requestSecond.open('POST', 'server.php');
+        requestSecond.setRequestHeader('Content-Type', 'application/json; charset=utf-8');
+        requestSecond.addEventListener('readystatechange', function () {
+          if (requestSecond.readyState < 4) {
+            resolve();
+          } else if (requestSecond.readyState == 4 && requestSecond.status == 200) {
+            resolve();
+          } else {
+            reject();
+          }
+        });
+        var obj = {};
+        data.forEach(function (value, key) {
+          obj[key] = value;
+        });
+        console.log(obj);
+        var json = JSON.stringify(obj);
+        console.log(json);
+        requestSecond.send(json);
+      });
+    } // end postData
+
+
+    statusMessage.style.display = "block";
+    postData(formData).then(function () {
+      return statusMessage.innerHTML = message.loading;
+    }).then(function () {
+      return statusMessage.innerHTML = message.success;
+    }).catch(function () {
+      return statusMessage.innerHTML = message.failure;
+    }).then(clearInput); // console.log(formData.values);
   });
 }
 

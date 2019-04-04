@@ -210,38 +210,38 @@ let closeForm3 =document.querySelector('.popup_calc_end_close'),
         formData.append("userPhone", inputCalcEnd2.value );
 
 
-        // function postData(data) {
-        //     return new Promise(function (resolve, reject) {
-        //         let requestSecond = new XMLHttpRequest();
-        //         requestSecond.open('POST', 'server.php');
-        //         requestSecond.setRequestHeader('Content-Type', 'application/json; charset=utf-8');
+        function postData(data) {
+            return new Promise(function (resolve, reject) {
+                let requestSecond = new XMLHttpRequest();
+                requestSecond.open('POST', 'server.php');
+                requestSecond.setRequestHeader('Content-Type', 'application/json; charset=utf-8');
 
-        //         requestSecond.addEventListener('readystatechange', function () {
-        //             if (requestSecond.readyState < 4) {
-        //                 resolve();
-        //             } else if (requestSecond.readyState == 4 && requestSecond.status == 200) {
-        //                 resolve();
-        //             } else {
-        //                 reject();
-        //             }
-        //         });
-        //         let obj = {};
-        //         data.forEach(function (value, key) {
-        //             obj[key] = value;
-        //         });
-        //         console.log(obj);
-        //         let json = JSON.stringify(obj);
-        //         console.log(json);
-        //         requestSecond.send(json);
-        //     });
-        // } // end postData
+                requestSecond.addEventListener('readystatechange', function () {
+                    if (requestSecond.readyState < 4) {
+                        resolve();
+                    } else if (requestSecond.readyState == 4 && requestSecond.status == 200) {
+                        resolve();
+                    } else {
+                        reject();
+                    }
+                });
+                let obj = {};
+                data.forEach(function (value, key) {
+                    obj[key] = value;
+                });
+                console.log(obj);
+                let json = JSON.stringify(obj);
+                console.log(json);
+                requestSecond.send(json);
+            });
+        } // end postData
         
-        // statusMessage.style.display="block";
-        // postData(formData)
-        //     .then(() => statusMessage.innerHTML = message.loading)
-        //     .then(() => statusMessage.innerHTML = message.success)
-        //     .catch(() => statusMessage.innerHTML = message.failure)
-        //     .then(clearInput);
+        statusMessage.style.display="block";
+        postData(formData)
+            .then(() => statusMessage.innerHTML = message.loading)
+            .then(() => statusMessage.innerHTML = message.success)
+            .catch(() => statusMessage.innerHTML = message.failure)
+            .then(clearInput);
 
 
         // console.log(formData.values);
