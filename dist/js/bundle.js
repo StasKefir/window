@@ -200,8 +200,7 @@ function calc() {
       modalPopupCalc.style.display = "none";
       popupCalcProfile.style.display = "block";
 
-      for (var i = 0; i < decorationChild; i++) {
-        console.log(decorationChild[i]);
+      for (var i = 0; i < decorationChild; i++) {// console.log(decorationChild[i]);
       }
 
       decorationChild.forEach(function (item) {
@@ -210,8 +209,8 @@ function calc() {
         }
       });
       formData.append("width", popupInputCalc[0].value);
-      formData.append("height", popupInputCalc[1].value);
-      console.log(formData.values);
+      formData.append("height", popupInputCalc[1].value); // console.log(formData.values);
+
       clearInput();
     } else {
       alert("введите параметры");
@@ -239,8 +238,7 @@ function calc() {
         formData.append("profileType", "cold");
       }
 
-      clearInput();
-      console.log(formData.values);
+      clearInput(); // console.log(formData.values);
     } else {
       alert("выберите параметры");
     }
@@ -270,8 +268,7 @@ function calc() {
   closeForm3.addEventListener('click', function () {
     popupCalcEnd.style.display = "none";
     clearInput();
-    statusMessage.style.display = 'none';
-    console.log(formData);
+    statusMessage.style.display = 'none'; // console.log(formData);
   });
   inputCalcEnd2.addEventListener('input', function () {
     if (!validatePhone(this.value)) {
@@ -316,8 +313,7 @@ function calc() {
     //     .then(() => statusMessage.innerHTML = message.success)
     //     .catch(() => statusMessage.innerHTML = message.failure)
     //     .then(clearInput);
-
-    console.log(formData.values);
+    // console.log(formData.values);
   });
 }
 
@@ -417,8 +413,8 @@ function callMeasurer() {
           var obj = {};
           data.forEach(function (value, key) {
             obj[key] = value;
-          });
-          console.log(obj);
+          }); // console.log(obj);
+
           var json = JSON.stringify(obj);
           requestSecond.send(json);
         });
@@ -494,10 +490,9 @@ function gallery() {
                     max-width:94%;\
                     ";
         divPopGal.addEventListener('click', function (event) {
-          var target = event.target;
-          console.log('hello');
-          console.log(target);
-          console.log(divGalBack);
+          var target = event.target; // console.log('hello');
+          // console.log(target);
+          // console.log(divGalBack);
 
           if (target == divPopGal) {
             console.log('no');
@@ -548,6 +543,9 @@ function glazTabs() {
 
   function addActiveClass(a) {
     tab.forEach(function (item) {
+      console.log(item);
+      console.log(a);
+
       if (item == a) {
         item.classList.add('active'); // item.classList.add('after_click');
       } else {
@@ -558,19 +556,17 @@ function glazTabs() {
 
   tabWrapper.addEventListener('click', function (event) {
     var target = event.target,
-        parentTab;
-    console.log(target && (target.parentNode.classList.contains('glazing_block') || target.classList.contains('glazing_block')));
+        parentTab; // console.log(target && (target.parentNode.classList.contains('glazing_block') || target.classList.contains('glazing_block')));
 
     if (target && (target.parentNode.classList.contains('glazing_block') || target.classList.contains('glazing_block'))) {
       for (var i = 0; i < tabContent.length; i++) {
         if (target == tab[i] || target == glazingBlock[i] || target.parentNode == glazingBlock[i]) {
           hideTabContent(0);
           showTabContent(i);
-          parentTab = tab[i].parentNode;
-          console.log(parentTab);
+          parentTab = tab[i].parentNode; // console.log(parentTab);
 
           if (!parentTab.classList.contains('active')) {
-            addActiveClass(parentTab);
+            addActiveClass(tab[i]);
           } else {
             console.log('no');
           }

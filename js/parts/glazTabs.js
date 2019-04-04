@@ -26,6 +26,8 @@ function glazTabs() {
     }
     function addActiveClass(a){
         tab.forEach( function(item){
+            console.log(item);
+            console.log(a);
             if (item== a){
                 item.classList.add('active');
                 // item.classList.add('after_click');
@@ -40,16 +42,16 @@ function glazTabs() {
     tabWrapper.addEventListener('click', function (event) {
         let target = event.target,
             parentTab;
-            console.log(target && (target.parentNode.classList.contains('glazing_block') || target.classList.contains('glazing_block')));
+            // console.log(target && (target.parentNode.classList.contains('glazing_block') || target.classList.contains('glazing_block')));
         if (target && (target.parentNode.classList.contains('glazing_block') || target.classList.contains('glazing_block'))) {
             for (let i = 0; i < tabContent.length; i++) {
                 if (target == tab[i]  || target == glazingBlock[i] || target.parentNode == glazingBlock[i]) {
                     hideTabContent(0);
                     showTabContent(i);
                     parentTab = tab[i].parentNode;
-                    console.log(parentTab);
+                    // console.log(parentTab);
                     if(!(parentTab.classList.contains('active'))){
-                        addActiveClass(parentTab);
+                        addActiveClass(tab[i]);
                     } else{console.log('no');}
                     break;
                 }

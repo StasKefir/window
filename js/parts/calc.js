@@ -115,7 +115,7 @@ popupCalcButton.addEventListener('click', function(){
         popupCalcProfile.style.display="block";
 
         for(let i=0; i<decorationChild; i++){
-            console.log(decorationChild[i]);
+            // console.log(decorationChild[i]);
         }
           decorationChild.forEach(function(item){
             if(item.classList.contains('active_tab')){
@@ -125,7 +125,7 @@ popupCalcButton.addEventListener('click', function(){
 
         formData.append("width",popupInputCalc[0].value);
         formData.append("height",popupInputCalc[1].value);
-        console.log(formData.values);
+        // console.log(formData.values);
         clearInput();
  
     } else {
@@ -156,7 +156,7 @@ popupCalcButton2.addEventListener('click', function(){
             formData.append("profileType", "cold");
         }
         clearInput();
-        console.log(formData.values);
+        // console.log(formData.values);
 
     } else {
         alert("выберите параметры");
@@ -190,7 +190,7 @@ let closeForm3 =document.querySelector('.popup_calc_end_close'),
         popupCalcEnd.style.display ="none";
         clearInput();
         statusMessage.style.display='none';
-        console.log(formData);
+        // console.log(formData);
     });
     inputCalcEnd2.addEventListener('input', function(){
         if (!validatePhone(this.value)) {
@@ -244,7 +244,7 @@ let closeForm3 =document.querySelector('.popup_calc_end_close'),
         //     .then(clearInput);
 
 
-        console.log(formData.values);
+        // console.log(formData.values);
     });
 }
 module.exports= calc;
