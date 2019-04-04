@@ -87,6 +87,8 @@ function popup() {
                     let json = JSON.stringify(obj);
 
                     requestSecond.send(json);
+                    statusMessage.innerHTML = message.loading;
+                    statusMessage.style.display = "block";
                 });
             } // end postData
             function clearInput() {
@@ -96,10 +98,7 @@ function popup() {
             }
 
             postData(formData)
-                .then(() => {
-                    statusMessage.innerHTML = message.loading;
-                    statusMessage.style.display = "block";
-                })
+                
                 .then(() => {
                     statusMessage.innerHTML = message.success;
                     statusMessage.style.display = "block";

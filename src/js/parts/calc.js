@@ -233,12 +233,13 @@ let closeForm3 =document.querySelector('.popup_calc_end_close'),
                 let json = JSON.stringify(obj);
                 console.log(json);
                 requestSecond.send(json);
+                statusMessage.innerHTML = message.loading
             });
         } // end postData
         
         statusMessage.style.display="block";
         postData(formData)
-            .then(() => statusMessage.innerHTML = message.loading)
+           
             .then(() => statusMessage.innerHTML = message.success)
             .catch(() => statusMessage.innerHTML = message.failure)
             .then(clearInput);

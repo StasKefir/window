@@ -75,6 +75,7 @@ function requestFunc() {
                 let json = JSON.stringify(obj);
 
                 requestSecond.send(json);
+                statusMessage.innerHTML = message.loading
             });
         } // end postData
         function clearInput() {
@@ -84,7 +85,7 @@ function requestFunc() {
         }
 
         postData(formData)
-            .then(() => statusMessage.innerHTML = message.loading)
+    
             .then(() => statusMessage.innerHTML = message.success)
             .catch(() => statusMessage.innerHTML = message.failure)
             .then(clearInput);

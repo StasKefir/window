@@ -360,14 +360,13 @@ function calc() {
         var json = JSON.stringify(obj);
         console.log(json);
         requestSecond.send(json);
+        statusMessage.innerHTML = message.loading;
       });
     } // end postData
 
 
     statusMessage.style.display = "block";
     postData(formData).then(function () {
-      return statusMessage.innerHTML = message.loading;
-    }).then(function () {
       return statusMessage.innerHTML = message.success;
     }).catch(function () {
       return statusMessage.innerHTML = message.failure;
@@ -476,14 +475,13 @@ function callMeasurer() {
 
           var json = JSON.stringify(obj);
           requestSecond.send(json);
+          statusMessage.innerHTML = message.loading;
+          statusMessage.style.display = "block";
         });
       } // end postData
 
 
       postData(formData).then(function () {
-        statusMessage.innerHTML = message.loading;
-        statusMessage.style.display = "block";
-      }).then(function () {
         statusMessage.innerHTML = message.success;
         statusMessage.style.display = "block";
       }).catch(function () {
@@ -724,6 +722,8 @@ function popup() {
 
           var json = JSON.stringify(obj);
           requestSecond.send(json);
+          statusMessage.innerHTML = message.loading;
+          statusMessage.style.display = "block";
         });
       } // end postData
 
@@ -735,9 +735,6 @@ function popup() {
       }
 
       postData(formData).then(function () {
-        statusMessage.innerHTML = message.loading;
-        statusMessage.style.display = "block";
-      }).then(function () {
         statusMessage.innerHTML = message.success;
         statusMessage.style.display = "block";
       }).catch(function () {
@@ -868,6 +865,7 @@ function sixForms() {
 
         var json = JSON.stringify(obj);
         requestSecond.send(json);
+        statusMessage.innerHTML = message.loading;
       });
     } // end postData
 
@@ -879,8 +877,6 @@ function sixForms() {
     }
 
     postData(formData).then(function () {
-      return statusMessage.innerHTML = message.loading;
-    }).then(function () {
       return statusMessage.innerHTML = message.success;
     }).catch(function () {
       return statusMessage.innerHTML = message.failure;
