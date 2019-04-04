@@ -81,963 +81,10 @@
 /******/
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = "./js/script.js");
+/******/ 	return __webpack_require__(__webpack_require__.s = "./src/js/script.js");
 /******/ })
 /************************************************************************/
 /******/ ({
-
-/***/ "./js/parts/calc.js":
-/*!**************************!*\
-  !*** ./js/parts/calc.js ***!
-  \**************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-var _Promise = typeof Promise === 'undefined' ? __webpack_require__(/*! es6-promise */ "./node_modules/es6-promise/dist/es6-promise.js").Promise : Promise;
-
-function calc() {
-  var glazingPriceBtn = document.querySelectorAll('.glazing_price_btn'),
-      modalPopupCalc = document.querySelector('.popup_calc'),
-      popupCalcContent = document.querySelector('.popup_calc_content'),
-      btnCloseM1 = document.querySelector('.popup_calc_close');
-  glazingPriceBtn.forEach(function (item) {
-    // Open modal 1
-    item.addEventListener('click', function () {
-      popupCalcContent.style.top = "3%";
-      modalPopupCalc.style.display = "block";
-      decorationChild[0].classList.add('active_tab');
-    });
-  });
-  btnCloseM1.addEventListener('click', function (event) {
-    // Close modal 1
-    modalPopupCalc.style.display = "none";
-    clearInput();
-  });
-  var tabWrapper = document.querySelector('.balcon_icons'),
-      popupCalc = document.querySelector('.popup_calc');
-  tab = document.querySelectorAll('.icon_type'), decorationChild = document.querySelectorAll('.tabs_img'), // decorationChildAlt = document.querySelectorAll('.tabs_img').alt,
-  tabContent = document.querySelectorAll('.big_img_content'), popupInputCalc = popupCalc.getElementsByTagName('input'); // console.log(decorationChildAlt);
-  ////////////// check input forms
-
-  function validatePhone(a) {
-    return /^(|\d)\d{0,12}$/.test(a);
-  }
-
-  popupInputCalc[0].addEventListener('input', function () {
-    if (!validatePhone(this.value)) {
-      this.value = this.value.slice(0, -1);
-    }
-  });
-  popupInputCalc[1].addEventListener('input', function () {
-    if (!validatePhone(this.value)) {
-      this.value = this.value.slice(0, -1);
-    }
-  }); /////////////////////////////////
-
-  function hideTabContent(a) {
-    for (var i = a; i < tabContent.length; i++) {
-      tabContent[i].classList.remove('show');
-      tabContent[i].classList.add('hide');
-    }
-  }
-
-  hideTabContent(1);
-
-  function showTabContent(b) {
-    if (tabContent[b].classList.contains('hide')) {
-      tabContent[b].classList.remove('hide');
-      tabContent[b].classList.add('show');
-    }
-  }
-
-  function addActiveClass(a) {
-    decorationChild.forEach(function (item) {
-      if (item == a) {
-        item.classList.add('active_tab');
-      } else {
-        item.classList.remove('active_tab');
-      }
-    });
-  }
-
-  decorationChild[0].classList.add('active_tab');
-  tabWrapper.addEventListener('click', function (event) {
-    event.preventDefault();
-    var target = event.target;
-
-    if (target && target.classList.contains('tabs_img')) {
-      for (var i = 0; i < decorationChild.length; i++) {
-        if (target == decorationChild[i]) {
-          hideTabContent(0);
-          showTabContent(i);
-
-          if (!decorationChild[i].classList.contains('active_tab')) {
-            addActiveClass(decorationChild[i]);
-          } else {
-            console.log('no');
-          }
-
-          break;
-        }
-      }
-    }
-  }); /// send form 1
-
-  var popupCalcButton = popupCalc.querySelector('.popup_calc_button'),
-      popupCalcProfile = document.querySelector('.popup_calc_profile'),
-      btnCloseM2 = document.querySelector('.popup_calc_profile_close'),
-      checkboxInput1 = document.querySelectorAll('.checkbox')[0],
-      checkboxInput2 = document.querySelectorAll('.checkbox')[1],
-      popupCalcButton2 = document.querySelector('.popup_calc_profile_button'),
-      popupCalcEnd = document.querySelector('.popup_calc_end'),
-      popupEndInput = popupCalcEnd.getElementsByTagName("input");
-  fcSelect = document.querySelector('.fc-select'), fcOptions = fcSelect.getElementsByTagName('option'); // console.log(fcOptions);
-
-  btnCloseM2.addEventListener('click', function () {
-    popupCalcProfile.style.display = "none";
-    clearInput(); // console.log(formData);
-  });
-  popupCalcButton.addEventListener('click', function () {
-    if (!(popupInputCalc[1].value === "" || popupInputCalc[1].value === null && popupInputCalc[0].value === "" || popupInputCalc[1].value === null)) {
-      modalPopupCalc.style.display = "none";
-      popupCalcProfile.style.display = "block";
-
-      for (var i = 0; i < decorationChild; i++) {// console.log(decorationChild[i]);
-      }
-
-      decorationChild.forEach(function (item) {
-        if (item.classList.contains('active_tab')) {
-          formData.append("typeProfil", item.alt);
-        }
-      });
-      formData.append("width", popupInputCalc[0].value);
-      formData.append("height", popupInputCalc[1].value); // console.log(formData.values);
-
-      clearInput();
-    } else {
-      alert("введите параметры");
-    }
-  });
-  checkboxInput1.addEventListener('click', function () {
-    if (checkboxInput2.checked) {
-      checkboxInput2.checked = false;
-    }
-  });
-  checkboxInput2.addEventListener('click', function () {
-    if (checkboxInput1.checked) {
-      checkboxInput1.checked = false;
-    }
-  });
-  popupCalcButton2.addEventListener('click', function () {
-    if (checkboxInput1.checked == true || checkboxInput2.checked == true) {
-      popupCalcProfile.style.display = "none";
-      popupCalcEnd.style.display = "block";
-      formData.append("type", fcSelect.options[fcSelect.selectedIndex].value);
-
-      if (checkboxInput2.checked) {
-        formData.append("profileType", "hot");
-      } else {
-        formData.append("profileType", "cold");
-      }
-
-      clearInput(); // console.log(formData.values);
-    } else {
-      alert("выберите параметры");
-    }
-  }); // ////////////////// form 3
-
-  var closeForm3 = document.querySelector('.popup_calc_end_close'),
-      btnForm3 = popupCalcEnd.getElementsByTagName('button')[1],
-      inputCalcEnd1 = popupCalcEnd.getElementsByTagName('input')[0],
-      inputCalcEnd2 = popupCalcEnd.getElementsByTagName('input')[1],
-      statusMessage = document.createElement('div'),
-      formLast = document.querySelector('.form-last'),
-      formData = new FormData();
-  formLast.appendChild(statusMessage);
-
-  function clearInput() {
-    inputCalcEnd1.value = '';
-    inputCalcEnd2.value = '';
-    checkboxInput1.checked = false;
-    checkboxInput2.checked = false;
-    popupInputCalc[0].value = "";
-    popupInputCalc[1].value = ""; // formData = new FormData();
-
-    fcSelect.selectedIndex = 0;
-    addActiveClass(0);
-  }
-
-  closeForm3.addEventListener('click', function () {
-    popupCalcEnd.style.display = "none";
-    clearInput();
-    statusMessage.style.display = 'none'; // console.log(formData);
-  });
-  inputCalcEnd2.addEventListener('input', function () {
-    if (!validatePhone(this.value)) {
-      this.value = this.value.slice(0, -1);
-    }
-  });
-  var message = {
-    loading: "Loading",
-    success: "Спасибо! Скоро мы с Вами свяжемся",
-    failure: "Что-то пошло не так..."
-  };
-  btnForm3.addEventListener('click', function (event) {
-    event.preventDefault();
-    formData.append("userName", inputCalcEnd1.value);
-    formData.append("userPhone", inputCalcEnd2.value);
-
-    function postData(data) {
-      return new _Promise(function (resolve, reject) {
-        var requestSecond = new XMLHttpRequest();
-        requestSecond.open('POST', 'server.php');
-        requestSecond.setRequestHeader('Content-Type', 'application/json; charset=utf-8');
-        requestSecond.addEventListener('readystatechange', function () {
-          if (requestSecond.readyState < 4) {
-            resolve();
-          } else if (requestSecond.readyState == 4 && requestSecond.status == 200) {
-            resolve();
-          } else {
-            reject();
-          }
-        });
-        var obj = {};
-        data.forEach(function (value, key) {
-          obj[key] = value;
-        });
-        console.log(obj);
-        var json = JSON.stringify(obj);
-        console.log(json);
-        requestSecond.send(json);
-      });
-    } // end postData
-
-
-    statusMessage.style.display = "block";
-    postData(formData).then(function () {
-      return statusMessage.innerHTML = message.loading;
-    }).then(function () {
-      return statusMessage.innerHTML = message.success;
-    }).catch(function () {
-      return statusMessage.innerHTML = message.failure;
-    }).then(clearInput); // console.log(formData.values);
-  });
-}
-
-module.exports = calc;
-
-/***/ }),
-
-/***/ "./js/parts/callMeasurer.js":
-/*!**********************************!*\
-  !*** ./js/parts/callMeasurer.js ***!
-  \**********************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-var _Promise = typeof Promise === 'undefined' ? __webpack_require__(/*! es6-promise */ "./node_modules/es6-promise/dist/es6-promise.js").Promise : Promise;
-
-function callMeasurer() {
-  var btnCall = document.querySelector('.header_btn'),
-      btnModal = document.querySelector('.popup_engineer'),
-      mainForm = document.querySelector('.main-form'),
-      input = btnModal.getElementsByTagName('input'),
-      statusMessage = document.createElement('div'),
-      inputWrapper,
-      close = document.getElementById('btn_close');
-  var message = {
-    loading: "Loading",
-    success: "Спасибо! Скоро мы с Вами свяжемся",
-    failure: "Что-то пошло не так..."
-  };
-  mainForm.appendChild(statusMessage); ////////////////////////////////////////////////////////// вызов и закрытие окна
-
-  btnCall.addEventListener('click', function () {
-    btnModal.style.display = "block";
-    document.body.style.overflow = "hidden";
-  });
-  close.addEventListener('click', function () {
-    btnModal.style.display = "none";
-    clearInput();
-
-    if (statusMessage === null || statusMessage === undefined || statusMessage === "") {} else {
-      statusMessage.style.display = "none";
-      document.body.style.overflow = "";
-    }
-  });
-  btnModal.addEventListener('click', function (event) {
-    var target = event.target;
-
-    if (target == btnModal) {
-      btnModal.style.display = "none";
-
-      if (statusMessage === null || statusMessage === undefined || statusMessage === "") {} else {
-        // statusMessage.remove();
-        statusMessage.style.display = "none"; // console.log('lol');
-      }
-    }
-  });
-
-  function clearInput() {
-    for (var i = 0; i < input.length; i++) {
-      input[i].value = '';
-    }
-  } ///////////////////////////////////////////////////////проверка телефона
-
-
-  function validatePhone(a) {
-    return /^(\+|\d)\d{0,12}$/.test(a);
-  }
-
-  input[1].addEventListener('input', function () {
-    if (!validatePhone(this.value)) {
-      this.value = this.value.slice(0, -1);
-    }
-  }); /////////////////////////////////////////////////////
-
-  mainForm.addEventListener('submit', function (event) {
-    inputWrapper = input[1].value;
-    arr = inputWrapper.split('');
-
-    if (!isNaN(+input[1].value) || input[1].value[0] == '+' && !isNaN(+input[1].value.slice(1, input[1].value.length + 1))) {
-      event.preventDefault();
-      var formData = new FormData(mainForm);
-
-      function postData(data) {
-        return new _Promise(function (resolve, reject) {
-          var requestSecond = new XMLHttpRequest();
-          requestSecond.open('POST', 'server.php');
-          requestSecond.setRequestHeader('Content-Type', 'application/json; charset=utf-8');
-          requestSecond.addEventListener('readystatechange', function () {
-            if (requestSecond.readyState < 4) {
-              resolve();
-            } else if (requestSecond.readyState == 4 && requestSecond.status == 200) {
-              resolve();
-            } else {
-              reject();
-            }
-          });
-          var obj = {};
-          data.forEach(function (value, key) {
-            obj[key] = value;
-          }); // console.log(obj);
-
-          var json = JSON.stringify(obj);
-          requestSecond.send(json);
-        });
-      } // end postData
-
-
-      postData(formData).then(function () {
-        statusMessage.innerHTML = message.loading;
-        statusMessage.style.display = "block";
-      }).then(function () {
-        statusMessage.innerHTML = message.success;
-        statusMessage.style.display = "block";
-      }).catch(function () {
-        statusMessage.innerHTML = message.failure;
-        statusMessage.style.display = "block";
-      }).then(clearInput);
-    } else {
-      event.preventDefault();
-      mainForm.appendChild(statusMessage);
-      statusMessage.innerHTML = "Используйте цифры и знак +";
-    }
-  });
-}
-
-module.exports = callMeasurer;
-
-/***/ }),
-
-/***/ "./js/parts/gallery.js":
-/*!*****************************!*\
-  !*** ./js/parts/gallery.js ***!
-  \*****************************/
-/*! no static exports found */
-/***/ (function(module, exports) {
-
-function gallery() {
-  var galleryContent = document.querySelector('.gallery_content'),
-      galleryItem = document.querySelectorAll('.gallery_item'),
-      gallImg = document.querySelectorAll('.gall_img');
-  galleryItem.forEach(function (item) {
-    item.addEventListener('click', function (event) {
-      var target = event.target,
-          itemChild = item.lastChild;
-      event.preventDefault();
-
-      if (target == itemChild.lastChild) {
-        var src = target.getAttribute("src"),
-            divPopGal = document.createElement('div'),
-            divGalBack = document.createElement('div'),
-            imgGal = document.createElement('img');
-        divPopGal.classList.add('popup-gallery');
-        divGalBack.classList.add('gallery-bg');
-        imgGal.classList.add('gallery-img');
-        document.body.appendChild(divPopGal); // divPopGal.appendChild(divGalBack);
-
-        divPopGal.appendChild(imgGal);
-        var arrSrc = src.split("/");
-        imgGal.setAttribute("src", "img/our_works/big_img/" + arrSrc[arrSrc.length - 1] + "");
-        divPopGal.style.cssText = "position: fixed;\
-                    top: 0px;\
-                    left: 0px;\
-                    height:100%;\
-                    width:100%;\
-                    background-color:rgba(0,0,0,.75);\
-                    display: flex;\
-                    align-items: center\
-                    justify-content: center\
-                    ";
-        imgGal.style.cssText = "position: relative;\
-                    margin:auto auto;\
-                    z-index:2;\
-                    max-height:94%;\
-                    max-width:94%;\
-                    ";
-        divPopGal.addEventListener('click', function (event) {
-          var target = event.target; // console.log('hello');
-          // console.log(target);
-          // console.log(divGalBack);
-
-          if (target == divPopGal) {
-            console.log('no');
-            divPopGal.style.display = "none";
-          }
-        });
-      }
-    });
-  });
-}
-
-module.exports = gallery;
-
-/***/ }),
-
-/***/ "./js/parts/glazTabs.js":
-/*!******************************!*\
-  !*** ./js/parts/glazTabs.js ***!
-  \******************************/
-/*! no static exports found */
-/***/ (function(module, exports) {
-
-function glazTabs() {
-  var tabWrapper = document.querySelector('.glazing_slider'),
-      tab = document.querySelectorAll('.btn-glaz'),
-      glazingBlock = document.querySelectorAll('.glazing_block'),
-      decorationChild = document.querySelectorAll('.decoration-child'),
-      // используй табы
-  tabContent = document.querySelectorAll('.tab-glaz'); // console.log(tabWrapper);
-  // console.log(tab);
-  // console.log(tabContent);
-
-  function hideTabContent(a) {
-    for (var i = a; i < tabContent.length; i++) {
-      tabContent[i].classList.remove('show');
-      tabContent[i].classList.add('hide');
-    }
-  }
-
-  hideTabContent(1);
-
-  function showTabContent(b) {
-    if (tabContent[b].classList.contains('hide')) {
-      tabContent[b].classList.remove('hide');
-      tabContent[b].classList.add('show');
-    }
-  }
-
-  function addActiveClass(a) {
-    tab.forEach(function (item) {
-      // console.log(item);
-      // console.log(a);
-      if (item == a) {
-        item.classList.add('active'); // item.classList.add('after_click');
-      } else {
-        item.classList.remove('active'); // item.classList.add('after_click');
-      }
-    });
-  }
-
-  tabWrapper.addEventListener('click', function (event) {
-    var target = event.target,
-        parentTab; // console.log(target && (target.parentNode.classList.contains('glazing_block') || target.classList.contains('glazing_block')));
-
-    if (target && (target.parentNode.classList.contains('glazing_block') || target.classList.contains('glazing_block'))) {
-      for (var i = 0; i < tabContent.length; i++) {
-        if (target == tab[i] || target == glazingBlock[i] || target.parentNode == glazingBlock[i]) {
-          hideTabContent(0);
-          showTabContent(i);
-          parentTab = tab[i].parentNode; // console.log(parentTab);
-
-          if (!parentTab.classList.contains('active')) {
-            addActiveClass(tab[i]);
-          } else {
-            console.log('no');
-          }
-
-          break;
-        }
-      }
-    }
-  });
-}
-
-module.exports = glazTabs;
-
-/***/ }),
-
-/***/ "./js/parts/popup.js":
-/*!***************************!*\
-  !*** ./js/parts/popup.js ***!
-  \***************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-var _Promise = typeof Promise === 'undefined' ? __webpack_require__(/*! es6-promise */ "./node_modules/es6-promise/dist/es6-promise.js").Promise : Promise;
-
-function popup() {
-  var btnCallModal = document.querySelectorAll('.phone_link')[0],
-      btnAskModal = document.querySelectorAll('.phone_link')[1],
-      close = document.querySelector('.popup_close'),
-      mainForm = document.querySelector('.popup_main_form'),
-      input = mainForm.getElementsByTagName('input'),
-      statusMessage = document.createElement('div'),
-      inputWrapper,
-      popup = document.querySelector('.popup');
-  mainForm.appendChild(statusMessage);
-  var message = {
-    loading: "Loading",
-    success: "Спасибо! Скоро мы с Вами свяжемся",
-    failure: "Что-то пошло не так..."
-  }; ///////////////////////////////////////////////////////////////// закрыть открыть
-
-  btnCallModal.addEventListener('click', function () {
-    event.preventDefault();
-    popup.style.display = "block";
-    document.body.style.overflow = "hidden";
-  });
-  btnAskModal.addEventListener('click', function () {
-    event.preventDefault();
-    popup.style.display = "block";
-    document.body.style.overflow = "hidden";
-  });
-  close.addEventListener('click', function () {
-    popup.style.display = "none"; // mainForm.lastElementChild.remove();
-
-    statusMessage.style.display = "none";
-    document.body.style.overflow = "";
-  }); //////////////////////////////////////////////////////////////////////
-
-  function validatePhone(a) {
-    return /^(\+|\d)\d{0,12}$/.test(a);
-  }
-
-  input[1].addEventListener('input', function () {
-    if (!validatePhone(this.value)) {
-      this.value = this.value.slice(0, -1);
-    }
-  }); //////////////////////////////////////////////////////////////////////
-
-  setTimeout(function () {
-    popup.style.display.block = "block";
-  }, 2 * 1000);
-  mainForm.addEventListener('submit', function (event) {
-    inputWrapper = input[1].value;
-    arr = inputWrapper.split('');
-
-    if (!isNaN(+input[1].value) || input[1].value[0] == '+' && !isNaN(+input[1].value.slice(1, input[1].value.length + 1))) {
-      event.preventDefault();
-      var formData = new FormData(mainForm);
-
-      function postData(data) {
-        return new _Promise(function (resolve, reject) {
-          var requestSecond = new XMLHttpRequest();
-          requestSecond.open('POST', 'server.php');
-          requestSecond.setRequestHeader('Content-Type', 'application/json; charset=utf-8');
-          requestSecond.addEventListener('readystatechange', function () {
-            if (requestSecond.readyState < 4) {
-              resolve();
-            } else if (requestSecond.readyState == 4 && requestSecond.status == 200) {
-              resolve();
-            } else {
-              reject();
-            }
-          });
-          var obj = {};
-          data.forEach(function (value, key) {
-            obj[key] = value;
-          }); // console.log(obj);
-
-          var json = JSON.stringify(obj);
-          requestSecond.send(json);
-        });
-      } // end postData
-
-
-      function clearInput() {
-        for (var i = 0; i < input.length; i++) {
-          input[i].value = '';
-        }
-      }
-
-      postData(formData).then(function () {
-        statusMessage.innerHTML = message.loading;
-        statusMessage.style.display = "block";
-      }).then(function () {
-        statusMessage.innerHTML = message.success;
-        statusMessage.style.display = "block";
-      }).catch(function () {
-        statusMessage.innerHTML = message.failure;
-        statusMessage.style.display = "block";
-      }).then(clearInput);
-    } else {
-      event.preventDefault();
-      mainForm.appendChild(statusMessage);
-      statusMessage.innerHTML = "Используйте цифры и знак +";
-    }
-  });
-  popup.addEventListener('click', function () {
-    var target = event.target;
-
-    if (target == popup) {
-      popup.style.display = "none";
-      statusMessage.style.display = "none";
-      document.body.style.overflow = "";
-    }
-  });
-}
-
-module.exports = popup;
-
-/***/ }),
-
-/***/ "./js/parts/popupTime.js":
-/*!*******************************!*\
-  !*** ./js/parts/popupTime.js ***!
-  \*******************************/
-/*! no static exports found */
-/***/ (function(module, exports) {
-
-function popupTime() {
-  var popup = document.querySelector('.popup');
-  setTimeout(popupUp, 60000);
-
-  function popupUp() {
-    var modal = document.querySelector('.popup');
-    modal.style.display = 'flex';
-  }
-
-  window.addEventListener('click', function (event) {
-    if (event.target == popup) {
-      popup.style.display = 'none';
-    }
-  });
-}
-
-module.exports = popupTime;
-
-/***/ }),
-
-/***/ "./js/parts/sixForms.js":
-/*!******************************!*\
-  !*** ./js/parts/sixForms.js ***!
-  \******************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-var _Promise = typeof Promise === 'undefined' ? __webpack_require__(/*! es6-promise */ "./node_modules/es6-promise/dist/es6-promise.js").Promise : Promise;
-
-function sixForms() {
-  var arrMainForm = document.querySelectorAll('.main_form'),
-      arrInput = document.querySelectorAll('.six-inputs'),
-      statusMessage = document.createElement('div'),
-      parentInput,
-      btnSubmit,
-      targetInput,
-      targetParent;
-  var message = {
-    loading: "Loading",
-    success: "Спасибо! Скоро мы с Вами свяжемся",
-    failure: "Что-то пошло не так..."
-  }; ///////////////////////////////////////////////////////проверка телефона
-
-  function validatePhone(a) {
-    return /^(\+|\d)\d{0,12}$/.test(a);
-  } /////////////////////////////////////////////////////
-
-
-  arrInput.forEach(function (item) {
-    item.addEventListener('input', function (event) {
-      if (!validatePhone(this.value)) {
-        this.value = this.value.slice(0, -1);
-      }
-    });
-  });
-  arrMainForm.forEach(function (item) {
-    item.addEventListener('submit', function (eve) {
-      event.preventDefault();
-      var target = event.target;
-      console.log(target);
-
-      for (var i = 0; i < item.length; i++) {
-        targetInput = target.getElementsByTagName('input');
-        targetParent = target;
-        targetInput[1].addEventListener('input', function () {});
-      }
-
-      requestFunc();
-    });
-  });
-
-  function requestFunc() {
-    targetParent.appendChild(statusMessage);
-    var formData = new FormData(targetParent);
-
-    function postData(data) {
-      return new _Promise(function (resolve, reject) {
-        var requestSecond = new XMLHttpRequest();
-        requestSecond.open('POST', 'server.php');
-        requestSecond.setRequestHeader('Content-Type', 'application/json; charset=utf-8');
-        requestSecond.addEventListener('readystatechange', function () {
-          if (requestSecond.readyState < 4) {
-            resolve();
-          } else if (requestSecond.readyState == 4 && requestSecond.status == 200) {
-            resolve();
-          } else {
-            reject();
-          }
-        });
-        var obj = {};
-        data.forEach(function (value, key) {
-          obj[key] = value;
-        }); // console.log(obj);
-
-        var json = JSON.stringify(obj);
-        requestSecond.send(json);
-      });
-    } // end postData
-
-
-    function clearInput() {
-      for (var i = 0; i < targetInput.length; i++) {
-        targetInput[i].value = '';
-      }
-    }
-
-    postData(formData).then(function () {
-      return statusMessage.innerHTML = message.loading;
-    }).then(function () {
-      return statusMessage.innerHTML = message.success;
-    }).catch(function () {
-      return statusMessage.innerHTML = message.failure;
-    }).then(clearInput);
-  }
-}
-
-module.exports = sixForms;
-
-/***/ }),
-
-/***/ "./js/parts/tabs.js":
-/*!**************************!*\
-  !*** ./js/parts/tabs.js ***!
-  \**************************/
-/*! no static exports found */
-/***/ (function(module, exports) {
-
-function tabs() {
-  var tabWrapper = document.querySelector('.decoration_slider'),
-      tab = document.querySelectorAll('.btn-item'),
-      decorItem = document.querySelectorAll('decoration_item'),
-      decorationChild = document.querySelectorAll('.decoration-child'),
-      tabContent = document.querySelectorAll('.tab_content');
-
-  function hideTabContent(a) {
-    for (var i = a; i < tabContent.length; i++) {
-      tabContent[i].classList.remove('show');
-      tabContent[i].classList.add('hide');
-    }
-  }
-
-  hideTabContent(1);
-
-  function showTabContent(b) {
-    if (tabContent[b].classList.contains('hide')) {
-      tabContent[b].classList.remove('hide');
-      tabContent[b].classList.add('show');
-    }
-  }
-
-  function addActiveClass(a) {
-    decorationChild.forEach(function (item) {
-      if (item == a) {
-        item.classList.add('after_click');
-      } else {
-        item.classList.remove('after_click');
-      }
-    });
-  }
-
-  tabWrapper.addEventListener('click', function (event) {
-    var target = event.target,
-        parentTab;
-
-    if (target && target.classList.contains('btn-item')) {
-      for (var i = 0; i < tab.length; i++) {
-        if (target == tab[i]) {
-          hideTabContent(0);
-          showTabContent(i);
-          parentTab = tab[i].parentNode; // preParent =parentTab.parentNode;
-
-          console.log(parentTab); // console.log(preParent);
-
-          if (!parentTab.classList.contains('after_click')) {
-            addActiveClass(parentTab); // parentTab.classList.add('after_click');
-          } else {
-            console.log('no');
-          }
-
-          break;
-        }
-      }
-    }
-  });
-}
-
-module.exports = tabs;
-
-/***/ }),
-
-/***/ "./js/parts/timer.js":
-/*!***************************!*\
-  !*** ./js/parts/timer.js ***!
-  \***************************/
-/*! no static exports found */
-/***/ (function(module, exports) {
-
-function timer() {
-  var deadLine = '2019-12-18';
-
-  function getTimeRemaining(endtime) {
-    var t = Date.parse(endtime) - Date.parse(new Date());
-    var seconds, minutes, hours, days;
-
-    if (Date.parse(new Date()) >= Date.parse(endtime)) {
-      seconds = 0;
-      minutes = 0;
-      hours = 0;
-      days = 0;
-    } else {
-      seconds = Math.floor(t / 1000 % 60);
-      minutes = Math.floor(t / 1000 / 60 % 60);
-      hours = Math.floor(t / (1000 * 60 * 60) % 60);
-      days = Math.floor(t / (1000 * 60 * 60 * 24));
-    }
-
-    return {
-      'total': t,
-      'days': days,
-      'hours': hours,
-      'minutes': minutes,
-      'seconds': seconds
-    };
-  }
-
-  function setClock(endtime) {
-    var days = document.getElementById('days'),
-        hours = document.getElementById('hours'),
-        minutes = document.getElementById('minutes'),
-        seconds = document.getElementById('seconds'),
-        timeInterval = setInterval(updateClock, 1000);
-
-    function updateClock() {
-      var t = getTimeRemaining(endtime);
-
-      if (t.days < 10) {
-        days.textContent = "0" + t.days;
-      } else {
-        days.textContent = t.days;
-      }
-
-      if (t.hours < 10) {
-        hours.textContent = "0" + t.hours;
-      } else {
-        hours.textContent = t.hours;
-      }
-
-      if (t.minutes < 10) {
-        minutes.textContent = '0' + t.minutes;
-      } else {
-        minutes.textContent = t.minutes;
-      }
-
-      if (t.seconds < 10) {
-        seconds.textContent = '0' + t.seconds;
-      } else {
-        seconds.textContent = t.seconds;
-      }
-
-      if (t.total <= 0) {
-        clearInterval(timeInterval);
-      }
-    }
-  }
-
-  setClock(deadLine);
-}
-
-module.exports = timer;
-
-/***/ }),
-
-/***/ "./js/script.js":
-/*!**********************!*\
-  !*** ./js/script.js ***!
-  \**********************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-__webpack_require__(/*! formdata-polyfill */ "./node_modules/formdata-polyfill/formdata.min.js");
-
-window.addEventListener('DOMContentLoaded', function () {
-  'use strict';
-
-  var callMeasurer = __webpack_require__(/*! ./parts/callMeasurer */ "./js/parts/callMeasurer.js"),
-      tabs = __webpack_require__(/*! ./parts/tabs */ "./js/parts/tabs.js"),
-      popup = __webpack_require__(/*! ./parts/popup */ "./js/parts/popup.js"),
-      timer = __webpack_require__(/*! ./parts/timer */ "./js/parts/timer.js"),
-      sixForms = __webpack_require__(/*! ./parts/sixForms */ "./js/parts/sixForms.js"),
-      glazTabs = __webpack_require__(/*! ./parts/glazTabs */ "./js/parts/glazTabs.js"),
-      popupTime = __webpack_require__(/*! ./parts/popupTime */ "./js/parts/popupTime.js"),
-      gallery = __webpack_require__(/*! ./parts/gallery */ "./js/parts/gallery.js"),
-      calc = __webpack_require__(/*! ./parts/calc */ "./js/parts/calc.js");
-
-  callMeasurer();
-  tabs();
-  popup();
-  timer();
-  sixForms();
-  glazTabs();
-  popupTime();
-  gallery();
-  calc();
-});
-
-if ('NodeList' in window && !NodeList.prototype.forEach) {
-  console.info('polyfill for IE11');
-
-  NodeList.prototype.forEach = function (callback, thisArg) {
-    thisArg = thisArg || window;
-
-    for (var i = 0; i < this.length; i++) {
-      callback.call(thisArg, this[i], i, this);
-    }
-  };
-}
-
-/***/ }),
 
 /***/ "./node_modules/es6-promise/dist/es6-promise.js":
 /*!******************************************************!*\
@@ -2485,6 +1532,960 @@ try {
 
 module.exports = g;
 
+
+/***/ }),
+
+/***/ "./src/js/parts/calc.js":
+/*!******************************!*\
+  !*** ./src/js/parts/calc.js ***!
+  \******************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+var _Promise = typeof Promise === 'undefined' ? __webpack_require__(/*! es6-promise */ "./node_modules/es6-promise/dist/es6-promise.js").Promise : Promise;
+
+function calc() {
+  var glazingPriceBtn = document.querySelectorAll('.glazing_price_btn'),
+      modalPopupCalc = document.querySelector('.popup_calc'),
+      popupCalcContent = document.querySelector('.popup_calc_content'),
+      btnCloseM1 = document.querySelector('.popup_calc_close');
+  glazingPriceBtn.forEach(function (item) {
+    // Open modal 1
+    item.addEventListener('click', function () {
+      popupCalcContent.style.top = "3%";
+      modalPopupCalc.style.display = "block";
+      decorationChild[0].classList.add('active_tab');
+    });
+  });
+  btnCloseM1.addEventListener('click', function (event) {
+    // Close modal 1
+    modalPopupCalc.style.display = "none";
+    clearInput();
+  });
+  var tabWrapper = document.querySelector('.balcon_icons'),
+      popupCalc = document.querySelector('.popup_calc');
+  tab = document.querySelectorAll('.icon_type'), decorationChild = document.querySelectorAll('.tabs_img'), // decorationChildAlt = document.querySelectorAll('.tabs_img').alt,
+  tabContent = document.querySelectorAll('.big_img_content'), popupInputCalc = popupCalc.getElementsByTagName('input'); // console.log(decorationChildAlt);
+  ////////////// check input forms
+
+  function validatePhone(a) {
+    return /^(|\d)\d{0,12}$/.test(a);
+  }
+
+  popupInputCalc[0].addEventListener('input', function () {
+    if (!validatePhone(this.value)) {
+      this.value = this.value.slice(0, -1);
+    }
+  });
+  popupInputCalc[1].addEventListener('input', function () {
+    if (!validatePhone(this.value)) {
+      this.value = this.value.slice(0, -1);
+    }
+  }); /////////////////////////////////
+
+  function hideTabContent(a) {
+    for (var i = a; i < tabContent.length; i++) {
+      tabContent[i].classList.remove('show');
+      tabContent[i].classList.add('hide');
+    }
+  }
+
+  hideTabContent(1);
+
+  function showTabContent(b) {
+    if (tabContent[b].classList.contains('hide')) {
+      tabContent[b].classList.remove('hide');
+      tabContent[b].classList.add('show');
+    }
+  }
+
+  function addActiveClass(a) {
+    decorationChild.forEach(function (item) {
+      if (item == a) {
+        item.classList.add('active_tab');
+      } else {
+        item.classList.remove('active_tab');
+      }
+    });
+  }
+
+  decorationChild[0].classList.add('active_tab');
+  tabWrapper.addEventListener('click', function (event) {
+    event.preventDefault();
+    var target = event.target;
+
+    if (target && target.classList.contains('tabs_img')) {
+      for (var i = 0; i < decorationChild.length; i++) {
+        if (target == decorationChild[i]) {
+          hideTabContent(0);
+          showTabContent(i);
+
+          if (!decorationChild[i].classList.contains('active_tab')) {
+            addActiveClass(decorationChild[i]);
+          } else {
+            console.log('no');
+          }
+
+          break;
+        }
+      }
+    }
+  }); /// send form 1
+
+  var popupCalcButton = popupCalc.querySelector('.popup_calc_button'),
+      popupCalcProfile = document.querySelector('.popup_calc_profile'),
+      btnCloseM2 = document.querySelector('.popup_calc_profile_close'),
+      checkboxInput1 = document.querySelectorAll('.checkbox')[0],
+      checkboxInput2 = document.querySelectorAll('.checkbox')[1],
+      popupCalcButton2 = document.querySelector('.popup_calc_profile_button'),
+      popupCalcEnd = document.querySelector('.popup_calc_end'),
+      popupEndInput = popupCalcEnd.getElementsByTagName("input");
+  fcSelect = document.querySelector('.fc-select'), fcOptions = fcSelect.getElementsByTagName('option'); // console.log(fcOptions);
+
+  btnCloseM2.addEventListener('click', function () {
+    popupCalcProfile.style.display = "none";
+    clearInput(); // console.log(formData);
+  });
+  popupCalcButton.addEventListener('click', function () {
+    if (!(popupInputCalc[1].value === "" || popupInputCalc[1].value === null && popupInputCalc[0].value === "" || popupInputCalc[1].value === null)) {
+      modalPopupCalc.style.display = "none";
+      popupCalcProfile.style.display = "block";
+
+      for (var i = 0; i < decorationChild; i++) {// console.log(decorationChild[i]);
+      }
+
+      decorationChild.forEach(function (item) {
+        if (item.classList.contains('active_tab')) {
+          formData.append("typeProfil", item.alt);
+        }
+      });
+      formData.append("width", popupInputCalc[0].value);
+      formData.append("height", popupInputCalc[1].value); // console.log(formData.values);
+
+      clearInput();
+    } else {
+      alert("введите параметры");
+    }
+  });
+  checkboxInput1.addEventListener('click', function () {
+    if (checkboxInput2.checked) {
+      checkboxInput2.checked = false;
+    }
+  });
+  checkboxInput2.addEventListener('click', function () {
+    if (checkboxInput1.checked) {
+      checkboxInput1.checked = false;
+    }
+  });
+  popupCalcButton2.addEventListener('click', function () {
+    if (checkboxInput1.checked == true || checkboxInput2.checked == true) {
+      popupCalcProfile.style.display = "none";
+      popupCalcEnd.style.display = "block";
+      formData.append("type", fcSelect.options[fcSelect.selectedIndex].value);
+
+      if (checkboxInput2.checked) {
+        formData.append("profileType", "hot");
+      } else {
+        formData.append("profileType", "cold");
+      }
+
+      clearInput(); // console.log(formData.values);
+    } else {
+      alert("выберите параметры");
+    }
+  }); // ////////////////// form 3
+
+  var closeForm3 = document.querySelector('.popup_calc_end_close'),
+      btnForm3 = popupCalcEnd.getElementsByTagName('button')[1],
+      inputCalcEnd1 = popupCalcEnd.getElementsByTagName('input')[0],
+      inputCalcEnd2 = popupCalcEnd.getElementsByTagName('input')[1],
+      statusMessage = document.createElement('div'),
+      formLast = document.querySelector('.form-last'),
+      formData = new FormData();
+  formLast.appendChild(statusMessage);
+
+  function clearInput() {
+    inputCalcEnd1.value = '';
+    inputCalcEnd2.value = '';
+    checkboxInput1.checked = false;
+    checkboxInput2.checked = false;
+    popupInputCalc[0].value = "";
+    popupInputCalc[1].value = ""; // formData = new FormData();
+
+    fcSelect.selectedIndex = 0;
+    addActiveClass(0);
+  }
+
+  closeForm3.addEventListener('click', function () {
+    popupCalcEnd.style.display = "none";
+    clearInput();
+    statusMessage.style.display = 'none'; // console.log(formData);
+  });
+  inputCalcEnd2.addEventListener('input', function () {
+    if (!validatePhone(this.value)) {
+      this.value = this.value.slice(0, -1);
+    }
+  });
+  var message = {
+    loading: "Loading",
+    success: "Спасибо! Скоро мы с Вами свяжемся",
+    failure: "Что-то пошло не так..."
+  };
+  btnForm3.addEventListener('click', function (event) {
+    event.preventDefault();
+    formData.append("userName", inputCalcEnd1.value);
+    formData.append("userPhone", inputCalcEnd2.value);
+
+    function postData(data) {
+      return new _Promise(function (resolve, reject) {
+        var requestSecond = new XMLHttpRequest();
+        requestSecond.open('POST', 'server.php');
+        requestSecond.setRequestHeader('Content-Type', 'application/json; charset=utf-8');
+        requestSecond.addEventListener('readystatechange', function () {
+          if (requestSecond.readyState < 4) {
+            resolve();
+          } else if (requestSecond.readyState == 4 && requestSecond.status == 200) {
+            resolve();
+          } else {
+            reject();
+          }
+        });
+        var obj = {};
+        data.forEach(function (value, key) {
+          obj[key] = value;
+        });
+        console.log(obj);
+        var json = JSON.stringify(obj);
+        console.log(json);
+        requestSecond.send(json);
+      });
+    } // end postData
+
+
+    statusMessage.style.display = "block";
+    postData(formData).then(function () {
+      return statusMessage.innerHTML = message.loading;
+    }).then(function () {
+      return statusMessage.innerHTML = message.success;
+    }).catch(function () {
+      return statusMessage.innerHTML = message.failure;
+    }).then(clearInput); // console.log(formData.values);
+  });
+}
+
+module.exports = calc;
+
+/***/ }),
+
+/***/ "./src/js/parts/callMeasurer.js":
+/*!**************************************!*\
+  !*** ./src/js/parts/callMeasurer.js ***!
+  \**************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+var _Promise = typeof Promise === 'undefined' ? __webpack_require__(/*! es6-promise */ "./node_modules/es6-promise/dist/es6-promise.js").Promise : Promise;
+
+function callMeasurer() {
+  var btnCall = document.querySelector('.header_btn'),
+      btnModal = document.querySelector('.popup_engineer'),
+      mainForm = document.querySelector('.main-form'),
+      input = btnModal.getElementsByTagName('input'),
+      statusMessage = document.createElement('div'),
+      inputWrapper,
+      close = document.getElementById('btn_close');
+  var message = {
+    loading: "Loading",
+    success: "Спасибо! Скоро мы с Вами свяжемся",
+    failure: "Что-то пошло не так..."
+  };
+  mainForm.appendChild(statusMessage); ////////////////////////////////////////////////////////// вызов и закрытие окна
+
+  btnCall.addEventListener('click', function () {
+    btnModal.style.display = "block";
+    document.body.style.overflow = "hidden";
+  });
+  close.addEventListener('click', function () {
+    btnModal.style.display = "none";
+    clearInput();
+
+    if (statusMessage === null || statusMessage === undefined || statusMessage === "") {} else {
+      statusMessage.style.display = "none";
+      document.body.style.overflow = "";
+    }
+  });
+  btnModal.addEventListener('click', function (event) {
+    var target = event.target;
+
+    if (target == btnModal) {
+      btnModal.style.display = "none";
+
+      if (statusMessage === null || statusMessage === undefined || statusMessage === "") {} else {
+        // statusMessage.remove();
+        statusMessage.style.display = "none";
+        document.body.style.overflow = ""; // console.log('lol');
+      }
+    }
+  });
+
+  function clearInput() {
+    for (var i = 0; i < input.length; i++) {
+      input[i].value = '';
+    }
+  } ///////////////////////////////////////////////////////проверка телефона
+
+
+  function validatePhone(a) {
+    return /^(\+|\d)\d{0,12}$/.test(a);
+  }
+
+  input[1].addEventListener('input', function () {
+    if (!validatePhone(this.value)) {
+      this.value = this.value.slice(0, -1);
+    }
+  }); /////////////////////////////////////////////////////
+
+  mainForm.addEventListener('submit', function (event) {
+    inputWrapper = input[1].value;
+    arr = inputWrapper.split('');
+
+    if (!isNaN(+input[1].value) || input[1].value[0] == '+' && !isNaN(+input[1].value.slice(1, input[1].value.length + 1))) {
+      event.preventDefault();
+      var formData = new FormData(mainForm);
+
+      function postData(data) {
+        return new _Promise(function (resolve, reject) {
+          var requestSecond = new XMLHttpRequest();
+          requestSecond.open('POST', 'server.php');
+          requestSecond.setRequestHeader('Content-Type', 'application/json; charset=utf-8');
+          requestSecond.addEventListener('readystatechange', function () {
+            if (requestSecond.readyState < 4) {
+              resolve();
+            } else if (requestSecond.readyState == 4 && requestSecond.status == 200) {
+              resolve();
+            } else {
+              reject();
+            }
+          });
+          var obj = {};
+          data.forEach(function (value, key) {
+            obj[key] = value;
+          }); // console.log(obj);
+
+          var json = JSON.stringify(obj);
+          requestSecond.send(json);
+        });
+      } // end postData
+
+
+      postData(formData).then(function () {
+        statusMessage.innerHTML = message.loading;
+        statusMessage.style.display = "block";
+      }).then(function () {
+        statusMessage.innerHTML = message.success;
+        statusMessage.style.display = "block";
+      }).catch(function () {
+        statusMessage.innerHTML = message.failure;
+        statusMessage.style.display = "block";
+      }).then(clearInput);
+    } else {
+      event.preventDefault();
+      mainForm.appendChild(statusMessage);
+      statusMessage.innerHTML = "Используйте цифры и знак +";
+    }
+  });
+}
+
+module.exports = callMeasurer;
+
+/***/ }),
+
+/***/ "./src/js/parts/gallery.js":
+/*!*********************************!*\
+  !*** ./src/js/parts/gallery.js ***!
+  \*********************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+function gallery() {
+  var galleryContent = document.querySelector('.gallery_content'),
+      galleryItem = document.querySelectorAll('.gallery_item'),
+      gallImg = document.querySelectorAll('.gall_img');
+  galleryItem.forEach(function (item) {
+    item.addEventListener('click', function (event) {
+      var target = event.target,
+          itemChild = item.lastChild;
+      event.preventDefault();
+
+      if (target == itemChild.lastChild) {
+        var src = target.getAttribute("src"),
+            divPopGal = document.createElement('div'),
+            divGalBack = document.createElement('div'),
+            imgGal = document.createElement('img');
+        divPopGal.classList.add('popup-gallery');
+        divGalBack.classList.add('gallery-bg');
+        imgGal.classList.add('gallery-img');
+        document.body.appendChild(divPopGal); // divPopGal.appendChild(divGalBack);
+
+        divPopGal.appendChild(imgGal);
+        var arrSrc = src.split("/");
+        imgGal.setAttribute("src", "img/our_works/big_img/" + arrSrc[arrSrc.length - 1] + "");
+        divPopGal.style.cssText = "position: fixed;\
+                    top: 0px;\
+                    left: 0px;\
+                    height:100%;\
+                    width:100%;\
+                    background-color:rgba(0,0,0,.75);\
+                    display: flex;\
+                    align-items: center\
+                    justify-content: center\
+                    ";
+        imgGal.style.cssText = "position: relative;\
+                    margin:auto auto;\
+                    z-index:2;\
+                    max-height:94%;\
+                    max-width:94%;\
+                    ";
+        divPopGal.addEventListener('click', function (event) {
+          var target = event.target; // console.log('hello');
+          // console.log(target);
+          // console.log(divGalBack);
+
+          if (target == divPopGal) {
+            console.log('no');
+            divPopGal.style.display = "none";
+          }
+        });
+      }
+    });
+  });
+}
+
+module.exports = gallery;
+
+/***/ }),
+
+/***/ "./src/js/parts/glazTabs.js":
+/*!**********************************!*\
+  !*** ./src/js/parts/glazTabs.js ***!
+  \**********************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+function glazTabs() {
+  var tabWrapper = document.querySelector('.glazing_slider'),
+      tab = document.querySelectorAll('.btn-glaz'),
+      glazingBlock = document.querySelectorAll('.glazing_block'),
+      decorationChild = document.querySelectorAll('.decoration-child'),
+      // используй табы
+  tabContent = document.querySelectorAll('.tab-glaz'); // console.log(tabWrapper);
+  // console.log(tab);
+  // console.log(tabContent);
+
+  function hideTabContent(a) {
+    for (var i = a; i < tabContent.length; i++) {
+      tabContent[i].classList.remove('show');
+      tabContent[i].classList.add('hide');
+    }
+  }
+
+  hideTabContent(1);
+
+  function showTabContent(b) {
+    if (tabContent[b].classList.contains('hide')) {
+      tabContent[b].classList.remove('hide');
+      tabContent[b].classList.add('show');
+    }
+  }
+
+  function addActiveClass(a) {
+    tab.forEach(function (item) {
+      // console.log(item);
+      // console.log(a);
+      if (item == a) {
+        item.classList.add('active'); // item.classList.add('after_click');
+      } else {
+        item.classList.remove('active'); // item.classList.add('after_click');
+      }
+    });
+  }
+
+  tabWrapper.addEventListener('click', function (event) {
+    var target = event.target,
+        parentTab; // console.log(target && (target.parentNode.classList.contains('glazing_block') || target.classList.contains('glazing_block')));
+
+    if (target && (target.parentNode.classList.contains('glazing_block') || target.classList.contains('glazing_block'))) {
+      for (var i = 0; i < tabContent.length; i++) {
+        if (target == tab[i] || target == glazingBlock[i] || target.parentNode == glazingBlock[i]) {
+          hideTabContent(0);
+          showTabContent(i);
+          parentTab = tab[i].parentNode; // console.log(parentTab);
+
+          if (!parentTab.classList.contains('active')) {
+            addActiveClass(tab[i]);
+          } else {
+            console.log('no');
+          }
+
+          break;
+        }
+      }
+    }
+  });
+}
+
+module.exports = glazTabs;
+
+/***/ }),
+
+/***/ "./src/js/parts/popup.js":
+/*!*******************************!*\
+  !*** ./src/js/parts/popup.js ***!
+  \*******************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+var _Promise = typeof Promise === 'undefined' ? __webpack_require__(/*! es6-promise */ "./node_modules/es6-promise/dist/es6-promise.js").Promise : Promise;
+
+function popup() {
+  var btnCallModal = document.querySelectorAll('.phone_link')[0],
+      btnAskModal = document.querySelectorAll('.phone_link')[1],
+      close = document.querySelector('.popup_close'),
+      mainForm = document.querySelector('.popup_main_form'),
+      input = mainForm.getElementsByTagName('input'),
+      statusMessage = document.createElement('div'),
+      inputWrapper,
+      popup = document.querySelector('.popup');
+  mainForm.appendChild(statusMessage);
+  var message = {
+    loading: "Loading",
+    success: "Спасибо! Скоро мы с Вами свяжемся",
+    failure: "Что-то пошло не так..."
+  }; ///////////////////////////////////////////////////////////////// закрыть открыть
+
+  btnCallModal.addEventListener('click', function () {
+    event.preventDefault();
+    popup.style.display = "block";
+    document.body.style.overflow = "hidden";
+  });
+  btnAskModal.addEventListener('click', function () {
+    event.preventDefault();
+    popup.style.display = "block";
+    document.body.style.overflow = "hidden";
+  });
+  close.addEventListener('click', function () {
+    popup.style.display = "none"; // mainForm.lastElementChild.remove();
+
+    statusMessage.style.display = "none";
+    document.body.style.overflow = "";
+  }); //////////////////////////////////////////////////////////////////////
+
+  function validatePhone(a) {
+    return /^(\+|\d)\d{0,12}$/.test(a);
+  }
+
+  input[1].addEventListener('input', function () {
+    if (!validatePhone(this.value)) {
+      this.value = this.value.slice(0, -1);
+    }
+  }); //////////////////////////////////////////////////////////////////////
+
+  setTimeout(function () {
+    popup.style.display.block = "block";
+  }, 2 * 1000);
+  mainForm.addEventListener('submit', function (event) {
+    inputWrapper = input[1].value;
+    arr = inputWrapper.split('');
+
+    if (!isNaN(+input[1].value) || input[1].value[0] == '+' && !isNaN(+input[1].value.slice(1, input[1].value.length + 1))) {
+      event.preventDefault();
+      var formData = new FormData(mainForm);
+
+      function postData(data) {
+        return new _Promise(function (resolve, reject) {
+          var requestSecond = new XMLHttpRequest();
+          requestSecond.open('POST', 'server.php');
+          requestSecond.setRequestHeader('Content-Type', 'application/json; charset=utf-8');
+          requestSecond.addEventListener('readystatechange', function () {
+            if (requestSecond.readyState < 4) {
+              resolve();
+            } else if (requestSecond.readyState == 4 && requestSecond.status == 200) {
+              resolve();
+            } else {
+              reject();
+            }
+          });
+          var obj = {};
+          data.forEach(function (value, key) {
+            obj[key] = value;
+          }); // console.log(obj);
+
+          var json = JSON.stringify(obj);
+          requestSecond.send(json);
+        });
+      } // end postData
+
+
+      function clearInput() {
+        for (var i = 0; i < input.length; i++) {
+          input[i].value = '';
+        }
+      }
+
+      postData(formData).then(function () {
+        statusMessage.innerHTML = message.loading;
+        statusMessage.style.display = "block";
+      }).then(function () {
+        statusMessage.innerHTML = message.success;
+        statusMessage.style.display = "block";
+      }).catch(function () {
+        statusMessage.innerHTML = message.failure;
+        statusMessage.style.display = "block";
+      }).then(clearInput);
+    } else {
+      event.preventDefault();
+      mainForm.appendChild(statusMessage);
+      statusMessage.innerHTML = "Используйте цифры и знак +";
+    }
+  });
+  popup.addEventListener('click', function () {
+    var target = event.target;
+
+    if (target == popup) {
+      popup.style.display = "none";
+      statusMessage.style.display = "none";
+      document.body.style.overflow = "";
+    }
+  });
+}
+
+module.exports = popup;
+
+/***/ }),
+
+/***/ "./src/js/parts/popupTime.js":
+/*!***********************************!*\
+  !*** ./src/js/parts/popupTime.js ***!
+  \***********************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+function popupTime() {
+  var popup = document.querySelector('.popup');
+  setTimeout(popupUp, 60000);
+
+  function popupUp() {
+    var modal = document.querySelector('.popup');
+    modal.style.display = 'flex';
+  }
+
+  window.addEventListener('click', function (event) {
+    if (event.target == popup) {
+      popup.style.display = 'none';
+    }
+  });
+}
+
+module.exports = popupTime;
+
+/***/ }),
+
+/***/ "./src/js/parts/sixForms.js":
+/*!**********************************!*\
+  !*** ./src/js/parts/sixForms.js ***!
+  \**********************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+var _Promise = typeof Promise === 'undefined' ? __webpack_require__(/*! es6-promise */ "./node_modules/es6-promise/dist/es6-promise.js").Promise : Promise;
+
+function sixForms() {
+  var arrMainForm = document.querySelectorAll('.main_form'),
+      arrInput = document.querySelectorAll('.six-inputs'),
+      statusMessage = document.createElement('div'),
+      parentInput,
+      btnSubmit,
+      targetInput,
+      targetParent;
+  var message = {
+    loading: "Loading",
+    success: "Спасибо! Скоро мы с Вами свяжемся",
+    failure: "Что-то пошло не так..."
+  }; ///////////////////////////////////////////////////////проверка телефона
+
+  function validatePhone(a) {
+    return /^(\+|\d)\d{0,12}$/.test(a);
+  } /////////////////////////////////////////////////////
+
+
+  arrInput.forEach(function (item) {
+    item.addEventListener('input', function (event) {
+      if (!validatePhone(this.value)) {
+        this.value = this.value.slice(0, -1);
+      }
+    });
+  });
+  arrMainForm.forEach(function (item) {
+    item.addEventListener('submit', function (eve) {
+      event.preventDefault();
+      var target = event.target;
+      console.log(target);
+
+      for (var i = 0; i < item.length; i++) {
+        targetInput = target.getElementsByTagName('input');
+        targetParent = target;
+        targetInput[1].addEventListener('input', function () {});
+      }
+
+      requestFunc();
+    });
+  });
+
+  function requestFunc() {
+    targetParent.appendChild(statusMessage);
+    var formData = new FormData(targetParent);
+
+    function postData(data) {
+      return new _Promise(function (resolve, reject) {
+        var requestSecond = new XMLHttpRequest();
+        requestSecond.open('POST', 'server.php');
+        requestSecond.setRequestHeader('Content-Type', 'application/json; charset=utf-8');
+        requestSecond.addEventListener('readystatechange', function () {
+          if (requestSecond.readyState < 4) {
+            resolve();
+          } else if (requestSecond.readyState == 4 && requestSecond.status == 200) {
+            resolve();
+          } else {
+            reject();
+          }
+        });
+        var obj = {};
+        data.forEach(function (value, key) {
+          obj[key] = value;
+        }); // console.log(obj);
+
+        var json = JSON.stringify(obj);
+        requestSecond.send(json);
+      });
+    } // end postData
+
+
+    function clearInput() {
+      for (var i = 0; i < targetInput.length; i++) {
+        targetInput[i].value = '';
+      }
+    }
+
+    postData(formData).then(function () {
+      return statusMessage.innerHTML = message.loading;
+    }).then(function () {
+      return statusMessage.innerHTML = message.success;
+    }).catch(function () {
+      return statusMessage.innerHTML = message.failure;
+    }).then(clearInput);
+  }
+}
+
+module.exports = sixForms;
+
+/***/ }),
+
+/***/ "./src/js/parts/tabs.js":
+/*!******************************!*\
+  !*** ./src/js/parts/tabs.js ***!
+  \******************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+function tabs() {
+  var tabWrapper = document.querySelector('.decoration_slider'),
+      tab = document.querySelectorAll('.btn-item'),
+      decorItem = document.querySelectorAll('decoration_item'),
+      decorationChild = document.querySelectorAll('.decoration-child'),
+      tabContent = document.querySelectorAll('.tab_content');
+
+  function hideTabContent(a) {
+    for (var i = a; i < tabContent.length; i++) {
+      tabContent[i].classList.remove('show');
+      tabContent[i].classList.add('hide');
+    }
+  }
+
+  hideTabContent(1);
+
+  function showTabContent(b) {
+    if (tabContent[b].classList.contains('hide')) {
+      tabContent[b].classList.remove('hide');
+      tabContent[b].classList.add('show');
+    }
+  }
+
+  function addActiveClass(a) {
+    decorationChild.forEach(function (item) {
+      if (item == a) {
+        item.classList.add('after_click');
+      } else {
+        item.classList.remove('after_click');
+      }
+    });
+  }
+
+  tabWrapper.addEventListener('click', function (event) {
+    var target = event.target,
+        parentTab;
+
+    if (target && target.classList.contains('btn-item')) {
+      for (var i = 0; i < tab.length; i++) {
+        if (target == tab[i]) {
+          hideTabContent(0);
+          showTabContent(i);
+          parentTab = tab[i].parentNode; // preParent =parentTab.parentNode;
+
+          console.log(parentTab); // console.log(preParent);
+
+          if (!parentTab.classList.contains('after_click')) {
+            addActiveClass(parentTab); // parentTab.classList.add('after_click');
+          } else {
+            console.log('no');
+          }
+
+          break;
+        }
+      }
+    }
+  });
+}
+
+module.exports = tabs;
+
+/***/ }),
+
+/***/ "./src/js/parts/timer.js":
+/*!*******************************!*\
+  !*** ./src/js/parts/timer.js ***!
+  \*******************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+function timer() {
+  var deadLine = '2019-12-18';
+
+  function getTimeRemaining(endtime) {
+    var t = Date.parse(endtime) - Date.parse(new Date());
+    var seconds, minutes, hours, days;
+
+    if (Date.parse(new Date()) >= Date.parse(endtime)) {
+      seconds = 0;
+      minutes = 0;
+      hours = 0;
+      days = 0;
+    } else {
+      seconds = Math.floor(t / 1000 % 60);
+      minutes = Math.floor(t / 1000 / 60 % 60);
+      hours = Math.floor(t / (1000 * 60 * 60) % 60);
+      days = Math.floor(t / (1000 * 60 * 60 * 24));
+    }
+
+    return {
+      'total': t,
+      'days': days,
+      'hours': hours,
+      'minutes': minutes,
+      'seconds': seconds
+    };
+  }
+
+  function setClock(endtime) {
+    var days = document.getElementById('days'),
+        hours = document.getElementById('hours'),
+        minutes = document.getElementById('minutes'),
+        seconds = document.getElementById('seconds'),
+        timeInterval = setInterval(updateClock, 1000);
+
+    function updateClock() {
+      var t = getTimeRemaining(endtime);
+
+      if (t.days < 10) {
+        days.textContent = "0" + t.days;
+      } else {
+        days.textContent = t.days;
+      }
+
+      if (t.hours < 10) {
+        hours.textContent = "0" + t.hours;
+      } else {
+        hours.textContent = t.hours;
+      }
+
+      if (t.minutes < 10) {
+        minutes.textContent = '0' + t.minutes;
+      } else {
+        minutes.textContent = t.minutes;
+      }
+
+      if (t.seconds < 10) {
+        seconds.textContent = '0' + t.seconds;
+      } else {
+        seconds.textContent = t.seconds;
+      }
+
+      if (t.total <= 0) {
+        clearInterval(timeInterval);
+      }
+    }
+  }
+
+  setClock(deadLine);
+}
+
+module.exports = timer;
+
+/***/ }),
+
+/***/ "./src/js/script.js":
+/*!**************************!*\
+  !*** ./src/js/script.js ***!
+  \**************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+__webpack_require__(/*! formdata-polyfill */ "./node_modules/formdata-polyfill/formdata.min.js");
+
+window.addEventListener('DOMContentLoaded', function () {
+  'use strict';
+
+  var callMeasurer = __webpack_require__(/*! ./parts/callMeasurer */ "./src/js/parts/callMeasurer.js"),
+      tabs = __webpack_require__(/*! ./parts/tabs */ "./src/js/parts/tabs.js"),
+      popup = __webpack_require__(/*! ./parts/popup */ "./src/js/parts/popup.js"),
+      timer = __webpack_require__(/*! ./parts/timer */ "./src/js/parts/timer.js"),
+      sixForms = __webpack_require__(/*! ./parts/sixForms */ "./src/js/parts/sixForms.js"),
+      glazTabs = __webpack_require__(/*! ./parts/glazTabs */ "./src/js/parts/glazTabs.js"),
+      popupTime = __webpack_require__(/*! ./parts/popupTime */ "./src/js/parts/popupTime.js"),
+      gallery = __webpack_require__(/*! ./parts/gallery */ "./src/js/parts/gallery.js"),
+      calc = __webpack_require__(/*! ./parts/calc */ "./src/js/parts/calc.js");
+
+  callMeasurer();
+  tabs();
+  popup();
+  timer();
+  sixForms();
+  glazTabs();
+  popupTime();
+  gallery();
+  calc();
+});
+
+if ('NodeList' in window && !NodeList.prototype.forEach) {
+  console.info('polyfill for IE11');
+
+  NodeList.prototype.forEach = function (callback, thisArg) {
+    thisArg = thisArg || window;
+
+    for (var i = 0; i < this.length; i++) {
+      callback.call(thisArg, this[i], i, this);
+    }
+  };
+}
 
 /***/ })
 

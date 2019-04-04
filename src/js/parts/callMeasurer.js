@@ -22,11 +22,13 @@ let btnCall = document.querySelector('.header_btn'),
     
     close.addEventListener('click', function(){
         btnModal.style.display="none";
+       
         clearInput();
         if(statusMessage=== null || statusMessage=== undefined || statusMessage=== "" ){
         } else {
             statusMessage.style.display="none";
             document.body.style.overflow = "";
+            
         }
     });
 
@@ -34,11 +36,12 @@ let btnCall = document.querySelector('.header_btn'),
         let target = event.target;
         if(target==btnModal) {
             btnModal.style.display="none";
-           
+            
         if(statusMessage=== null || statusMessage=== undefined || statusMessage=== "" ){
         } else {
             // statusMessage.remove();
             statusMessage.style.display="none";
+            document.body.style.overflow = "";
             // console.log('lol');
            
         }
