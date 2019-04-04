@@ -49,70 +49,70 @@ input[1].addEventListener('input', function(){
     }
 });
 //////////////////////////////////////////////////////////////////////
-mainForm.addEventListener('submit', function (event) {
-    inputWrapper = input[1].value;
-    arr = inputWrapper.split('');
+// mainForm.addEventListener('submit', function (event) {
+//     inputWrapper = input[1].value;
+//     arr = inputWrapper.split('');
 
-    if (!isNaN(+input[1].value) || (input[1].value[0] == '+' && !(isNaN(+input[1].value.slice(1, input[1].value.length + 1))))) {
+//     if (!isNaN(+input[1].value) || (input[1].value[0] == '+' && !(isNaN(+input[1].value.slice(1, input[1].value.length + 1))))) {
 
-        event.preventDefault();
+//         event.preventDefault();
 
-        let formData = new FormData(mainForm);
+//         let formData = new FormData(mainForm);
 
-        function postData(data) {
-            return new Promise(function (resolve, reject) {
-                let requestSecond = new XMLHttpRequest();
-                requestSecond.open('POST', 'server.php');
-                requestSecond.setRequestHeader('Content-Type', 'application/json; charset=utf-8');
+//         function postData(data) {
+//             return new Promise(function (resolve, reject) {
+//                 let requestSecond = new XMLHttpRequest();
+//                 requestSecond.open('POST', 'server.php');
+//                 requestSecond.setRequestHeader('Content-Type', 'application/json; charset=utf-8');
 
-                requestSecond.addEventListener('readystatechange', function () {
-                    if (requestSecond.readyState < 4) {
-                        resolve();
-                    } else if (requestSecond.readyState == 4 && requestSecond.status == 200) {
-                        resolve();
-                    } else {
-                        reject();
-                    }
-                });
-                let obj = {};
-                data.forEach(function (value, key) {
-                    obj[key] = value;
-                });
-                // console.log(obj);
-                let json = JSON.stringify(obj);
+//                 requestSecond.addEventListener('readystatechange', function () {
+//                     if (requestSecond.readyState < 4) {
+//                         resolve();
+//                     } else if (requestSecond.readyState == 4 && requestSecond.status == 200) {
+//                         resolve();
+//                     } else {
+//                         reject();
+//                     }
+//                 });
+//                 let obj = {};
+//                 data.forEach(function (value, key) {
+//                     obj[key] = value;
+//                 });
+//                 // console.log(obj);
+//                 let json = JSON.stringify(obj);
 
-                requestSecond.send(json);
-            });
-        } // end postData
-        function clearInput() {
-            for (let i = 0; i < input.length; i++) {
-                input[i].value = '';
-            }
-        }
+//                 requestSecond.send(json);
+//             });
+//         } // end postData
+//         function clearInput() {
+//             for (let i = 0; i < input.length; i++) {
+//                 input[i].value = '';
+//             }
+//         }
 
-         postData(formData)
-            .then(() =>{statusMessage.innerHTML = message.loading;
-            statusMessage.style.display="block";} )
-            .then(() =>{statusMessage.innerHTML = message.success;
-                statusMessage.style.display="block";} )
-            .catch(() =>{statusMessage.innerHTML = message.failure;
-                statusMessage.style.display="block";} )
-            .then(clearInput);
+//          postData(formData)
+//             .then(() =>{statusMessage.innerHTML = message.loading;
+//             statusMessage.style.display="block";} )
+//             .then(() =>{statusMessage.innerHTML = message.success;
+//                 statusMessage.style.display="block";} )
+//             .catch(() =>{statusMessage.innerHTML = message.failure;
+//                 statusMessage.style.display="block";} )
+//             .then(clearInput);
 
 
-    } else {
-        event.preventDefault();
-        mainForm.appendChild(statusMessage);
-        statusMessage.innerHTML = "Используйте цифры и знак +";
-    }
-});
+//     } else {
+//         event.preventDefault();
+//         mainForm.appendChild(statusMessage);
+//         statusMessage.innerHTML = "Используйте цифры и знак +";
+//     }
+// });
 
-popup.addEventListener('click', function(){
-    let target = event.target;
-    if(target == popup){
-        popup.style.display = "none";
-    statusMessage.style.display="none";    }
+// popup.addEventListener('click', function(){
+//     let target = event.target;
+//     if(target == popup){
+//         popup.style.display = "none";
+//     statusMessage.style.display="none";    }
 
-});
+// });
 }
 module.exports = popup;

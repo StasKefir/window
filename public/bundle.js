@@ -1772,42 +1772,37 @@ function calc() {
   btnForm3.addEventListener('click', function (event) {
     event.preventDefault();
     formData.append("userName", inputCalcEnd1.value);
-    formData.append("userPhone", inputCalcEnd2.value);
+    formData.append("userPhone", inputCalcEnd2.value); // function postData(data) {
+    //     return new Promise(function (resolve, reject) {
+    //         let requestSecond = new XMLHttpRequest();
+    //         requestSecond.open('POST', 'server.php');
+    //         requestSecond.setRequestHeader('Content-Type', 'application/json; charset=utf-8');
+    //         requestSecond.addEventListener('readystatechange', function () {
+    //             if (requestSecond.readyState < 4) {
+    //                 resolve();
+    //             } else if (requestSecond.readyState == 4 && requestSecond.status == 200) {
+    //                 resolve();
+    //             } else {
+    //                 reject();
+    //             }
+    //         });
+    //         let obj = {};
+    //         data.forEach(function (value, key) {
+    //             obj[key] = value;
+    //         });
+    //         console.log(obj);
+    //         let json = JSON.stringify(obj);
+    //         console.log(json);
+    //         requestSecond.send(json);
+    //     });
+    // } // end postData
+    // statusMessage.style.display="block";
+    // postData(formData)
+    //     .then(() => statusMessage.innerHTML = message.loading)
+    //     .then(() => statusMessage.innerHTML = message.success)
+    //     .catch(() => statusMessage.innerHTML = message.failure)
+    //     .then(clearInput);
 
-    function postData(data) {
-      return new Promise(function (resolve, reject) {
-        var requestSecond = new XMLHttpRequest();
-        requestSecond.open('POST', 'server.php');
-        requestSecond.setRequestHeader('Content-Type', 'application/json; charset=utf-8');
-        requestSecond.addEventListener('readystatechange', function () {
-          if (requestSecond.readyState < 4) {
-            resolve();
-          } else if (requestSecond.readyState == 4 && requestSecond.status == 200) {
-            resolve();
-          } else {
-            reject();
-          }
-        });
-        var obj = {};
-        data.forEach(function (value, key) {
-          obj[key] = value;
-        });
-        console.log(obj);
-        var json = JSON.stringify(obj);
-        console.log(json);
-        requestSecond.send(json);
-      });
-    } // end postData
-
-
-    statusMessage.style.display = "block";
-    postData(formData).then(function () {
-      return statusMessage.innerHTML = message.loading;
-    }).then(function () {
-      return statusMessage.innerHTML = message.success;
-    }).catch(function () {
-      return statusMessage.innerHTML = message.failure;
-    }).then(clearInput);
     console.log(formData.values);
   });
 }
@@ -2121,69 +2116,60 @@ function popup() {
       this.value = this.value.slice(0, -1);
     }
   }); //////////////////////////////////////////////////////////////////////
-
-  mainForm.addEventListener('submit', function (event) {
-    inputWrapper = input[1].value;
-    arr = inputWrapper.split('');
-
-    if (!isNaN(+input[1].value) || input[1].value[0] == '+' && !isNaN(+input[1].value.slice(1, input[1].value.length + 1))) {
-      var postData = function postData(data) {
-        return new Promise(function (resolve, reject) {
-          var requestSecond = new XMLHttpRequest();
-          requestSecond.open('POST', 'server.php');
-          requestSecond.setRequestHeader('Content-Type', 'application/json; charset=utf-8');
-          requestSecond.addEventListener('readystatechange', function () {
-            if (requestSecond.readyState < 4) {
-              resolve();
-            } else if (requestSecond.readyState == 4 && requestSecond.status == 200) {
-              resolve();
-            } else {
-              reject();
-            }
-          });
-          var obj = {};
-          data.forEach(function (value, key) {
-            obj[key] = value;
-          }); // console.log(obj);
-
-          var json = JSON.stringify(obj);
-          requestSecond.send(json);
-        });
-      }; // end postData
-
-
-      var clearInput = function clearInput() {
-        for (var i = 0; i < input.length; i++) {
-          input[i].value = '';
-        }
-      };
-
-      event.preventDefault();
-      var formData = new FormData(mainForm);
-      postData(formData).then(function () {
-        statusMessage.innerHTML = message.loading;
-        statusMessage.style.display = "block";
-      }).then(function () {
-        statusMessage.innerHTML = message.success;
-        statusMessage.style.display = "block";
-      }).catch(function () {
-        statusMessage.innerHTML = message.failure;
-        statusMessage.style.display = "block";
-      }).then(clearInput);
-    } else {
-      event.preventDefault();
-      mainForm.appendChild(statusMessage);
-      statusMessage.innerHTML = "Используйте цифры и знак +";
-    }
-  });
-  popup.addEventListener('click', function () {
-    var target = event.target;
-
-    if (target == popup) {
-      popup.style.display = "none";
-      statusMessage.style.display = "none";
-    }
-  });
+  // mainForm.addEventListener('submit', function (event) {
+  //     inputWrapper = input[1].value;
+  //     arr = inputWrapper.split('');
+  //     if (!isNaN(+input[1].value) || (input[1].value[0] == '+' && !(isNaN(+input[1].value.slice(1, input[1].value.length + 1))))) {
+  //         event.preventDefault();
+  //         let formData = new FormData(mainForm);
+  //         function postData(data) {
+  //             return new Promise(function (resolve, reject) {
+  //                 let requestSecond = new XMLHttpRequest();
+  //                 requestSecond.open('POST', 'server.php');
+  //                 requestSecond.setRequestHeader('Content-Type', 'application/json; charset=utf-8');
+  //                 requestSecond.addEventListener('readystatechange', function () {
+  //                     if (requestSecond.readyState < 4) {
+  //                         resolve();
+  //                     } else if (requestSecond.readyState == 4 && requestSecond.status == 200) {
+  //                         resolve();
+  //                     } else {
+  //                         reject();
+  //                     }
+  //                 });
+  //                 let obj = {};
+  //                 data.forEach(function (value, key) {
+  //                     obj[key] = value;
+  //                 });
+  //                 // console.log(obj);
+  //                 let json = JSON.stringify(obj);
+  //                 requestSecond.send(json);
+  //             });
+  //         } // end postData
+  //         function clearInput() {
+  //             for (let i = 0; i < input.length; i++) {
+  //                 input[i].value = '';
+  //             }
+  //         }
+  //          postData(formData)
+  //             .then(() =>{statusMessage.innerHTML = message.loading;
+  //             statusMessage.style.display="block";} )
+  //             .then(() =>{statusMessage.innerHTML = message.success;
+  //                 statusMessage.style.display="block";} )
+  //             .catch(() =>{statusMessage.innerHTML = message.failure;
+  //                 statusMessage.style.display="block";} )
+  //             .then(clearInput);
+  //     } else {
+  //         event.preventDefault();
+  //         mainForm.appendChild(statusMessage);
+  //         statusMessage.innerHTML = "Используйте цифры и знак +";
+  //     }
+  // });
+  // popup.addEventListener('click', function(){
+  //     let target = event.target;
+  //     if(target == popup){
+  //         popup.style.display = "none";
+  //     statusMessage.style.display="none";    }
+  // });
 }
 
 module.exports = popup;
