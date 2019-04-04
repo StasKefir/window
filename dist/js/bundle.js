@@ -543,9 +543,8 @@ function glazTabs() {
 
   function addActiveClass(a) {
     tab.forEach(function (item) {
-      console.log(item);
-      console.log(a);
-
+      // console.log(item);
+      // console.log(a);
       if (item == a) {
         item.classList.add('active'); // item.classList.add('after_click');
       } else {
