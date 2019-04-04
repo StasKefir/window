@@ -2330,9 +2330,12 @@ function tabs() {
     var target = event.target,
         parentTab;
 
-    if (target && target.classList.contains('btn-item')) {
+    if (target && target.classList.contains('btn-item') || target.classList.contains('decoration-child')) {
       for (var i = 0; i < tab.length; i++) {
-        if (target == tab[i]) {
+        console.log(tab[i].parentNode);
+        console.log(target);
+
+        if (target == tab[i] || target == tab[i].parentNode) {
           hideTabContent(0);
           showTabContent(i);
           parentTab = tab[i].parentNode; // preParent =parentTab.parentNode;
